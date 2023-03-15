@@ -1,0 +1,33 @@
+.container{
+    margin: 5rem 3rem 0 ;
+    text-align: center;
+
+}
+
+.title{
+ margin-top: 5rem;
+}
+
+.author{
+margin-top: 2rem;
+}
+
+.description{    margin: 1rem 3rem 0;
+}
+
+.blogTitle{
+    /* text-decoration: none; */
+    color: rgb(118 76 76);
+    font-weight: 500;
+    text-underline-offset: 4px;
+}
+
+
+/* blogs */
+.editButton{
+    margin-right: 5px;
+}
+.editLink{
+    text-decoration: none;
+    color: #000;
+}
