@@ -27,8 +27,7 @@ function App() {
           <Route path="/register" element={<Register />}></Route>
           <Route path="/:blogId" element={<BlogPost />}></Route>
           <Route path="/edit/:id" element={<EditBlog />}></Route>
-          <Route path="/addblog" element={<AddBlog />}></Route>
-
+          <Route path="/addBlog" element={<AddBlog />}></Route>
           </Routes>
         </ProfileMenu.Provider>
       </BrowserRouter>

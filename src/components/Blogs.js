@@ -35,15 +35,15 @@ function Blogs() {
 
   const editHandler = (id) => {
     console.log(id);
-    fetch(`http://localhost:5000/blog/${id}`)
-      .then((response) => response.json())
-      .then((data) => {
-        console.log(data);
-        nevigate(`edit/${id}`);
-      });
+    // fetch(`http://localhost:5000/blog/${id}`)
+    //   .then((response) => response.json())
+    //   .then((data) => {
+    //     console.log(data);
+    nevigate(`edit/${id}`);
+    // });
   };
 
-  const columnDefs = [
+  const [columnDefs, setcolumnDefs] = useState([
     { field: "id" },
     {
       headerName: "Title",
@@ -60,7 +60,8 @@ function Blogs() {
     { field: "description" },
     { field: "author" },
     { field: "category" },
-    checkRole && {
+    // checkRole &&
+    {
       field: "actions",
       cellRendererFramework: ({ data }) => (
         <div>
@@ -74,14 +75,40 @@ function Blogs() {
         </div>
       ),
     },
-  ];
+  ]);
+
+  useEffect(() => {
+    if (!checkRole) {
+      setcolumnDefs([
+        { field: "id" },
+        { field: "title" },
+        { field: "description" },
+        { field: "author" },
+        { field: "category" }
+      ]);
+    }
+  }, [checkRole]);
+
+  const defaultColDef = {
+    sortable: true,
+    filter: true,
+    floatingFilter: true
+  };
 
   return (
     <div
       className="ag-theme-alpine"
-      style={{ height: "500px", width: checkRole ? "90vw" : "80vw", margin: "100px auto" }}
+      style={{
+        height: "500px",
+        width: checkRole ? "90vw" : "80vw",
+        margin: "100px auto",
+      }}
     >
-      <AgGridReact columnDefs={columnDefs} rowData={rowData} />
+      <AgGridReact
+        columnDefs={columnDefs}
+        defaultColDef={defaultColDef}
+        rowData={rowData}
+      />
     </div>
   );
 }

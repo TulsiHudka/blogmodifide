@@ -1,21 +1,23 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import classes from "./EditBlog.module.css";
+
 
 function AddBlog() {
     const navigate = useNavigate();
-  console.log(id);
+  // console.log(id);
 //   const [blog, setBlog] = useState("");
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [author, setAuthor] = useState("");
   const [category, setCategory] = useState("");
-  const mainBlog = {
+  const newBlog = {
     title,
     description,
     author,
     category,
   };
-  console.log(mainBlog);
+  console.log(newBlog);
   function handleSubmit(e) {
     e.preventDefault();
     fetch(`http://localhost:5000/blogs`, {
@@ -23,7 +25,7 @@ function AddBlog() {
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify(mainBlog),
+      body: JSON.stringify(newBlog),
     })
       .then((response) => response.json())
       .then((data) => console.log(data))
@@ -87,7 +89,7 @@ function AddBlog() {
         </div>
 
         <button type="submit" class="btn btn-primary btn-block mb-4">
-          Update
+          AddBlog
         </button>
       </form>
     </div>
