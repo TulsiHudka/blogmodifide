@@ -1,24 +1,30 @@
 import React, { useState, useEffect } from "react";
 import { AgGridReact } from "ag-grid-react";
-import { Link, useParams, useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import classes from "./BlogPost.module.css";
-import { useContext } from "react";
-import { ProfileMenu } from "../context/ProfileMenu";
+// import { useContext } from "react";
+// import { ProfileMenu } from "../context/ProfileMenu";
+import { useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 
 import "ag-grid-community/styles/ag-grid.css"; // Core grid CSS, always needed
 import "ag-grid-community/styles/ag-theme-alpine.css"; // Optional theme CSS
 
 function Blogs() {
-  const { checkRole, checkLogin } = useContext(ProfileMenu);
+  // const { checkRole, checkLogin } = useContext(ProfileMenu);
   const [rowData, setRowData] = useState([]);
   const nevigate = useNavigate();
+  // const dispatch = useDispatch()
+  const checkLogin = useSelector(state => state.checkLogin) 
 
+  // console.log(checkRole);
   useEffect(() => {
     fetch("http://localhost:5000/blogs")
       .then((response) => response.json())
       .then((data) => setRowData(data))
       .catch((error) => console.error(error));
   }, []);
+
 
   const deleteHandler = (id) => {
     console.log(`Button clicked for row with ID ${id}`);
@@ -76,12 +82,25 @@ function Blogs() {
       ),
     },
   ]);
+const checkRole =  useSelector(state => state.checkRole) 
 
   useEffect(() => {
     if (!checkRole) {
       setcolumnDefs([
         { field: "id" },
-        { field: "title" },
+        checkLogin ?
+        {
+          headerName: "Title",
+          field: "title",
+          cellRenderer: (e) => {
+            const blogId = e.data.id;
+            return (
+              <Link to={`/${blogId}`} className={classes.blogTitle}>
+                {e.value}
+              </Link>
+            );
+          },
+        } : { field: "title" },
         { field: "description" },
         { field: "author" },
         { field: "category" }

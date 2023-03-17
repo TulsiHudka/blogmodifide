@@ -9,16 +9,20 @@ import { ProfileMenu } from "./context/ProfileMenu";
 import BlogPost from "./components/BlogPost";
 import EditBlog from "./components/EditBlog";
 import AddBlog from "./components/AddBlog";
+// import { useSelector } from "react-redux";
+import {Provider} from "react-redux";
+import { store } from "./Store/Index";
 
 function App() {
-  const [email, emailupdate] = useState('');
-  const [password, passwordupdate] = useState('');
+  // const [email, emailupdate] = useState('');
+  // const [password, passwordupdate] = useState('');
   const [checkRole, checkRoledupdate] = useState(false);
   const [checkLogin, checkLogindupdate] = useState(false);
   return (
     <div>
+      <Provider store={store}>
       <BrowserRouter>
-      <ProfileMenu.Provider value={{emailupdate, passwordupdate, email, password, checkRole, checkRoledupdate, checkLogin, checkLogindupdate}}>    
+      <ProfileMenu.Provider value={{checkRole, checkRoledupdate, checkLogin, checkLogindupdate}}>    
         <Navbar />
         <Routes>
           <Route path="/" element={<Blogs />}></Route>
@@ -31,6 +35,7 @@ function App() {
           </Routes>
         </ProfileMenu.Provider>
       </BrowserRouter>
+      </Provider>   
     </div>
   );
 }

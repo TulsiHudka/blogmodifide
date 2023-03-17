@@ -1,24 +1,30 @@
 import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
-import { useContext } from "react";
-import { ProfileMenu } from "../context/ProfileMenu";
+// import { useContext } from "react";
+// import { ProfileMenu } from "../context/ProfileMenu";
+// import { useSelector } from "react-redux";
+import { blogActions } from "../Store/Index";
+import { useDispatch } from "react-redux";
 
 const Login = () => {
-    const {
-    emailupdate,
-    passwordupdate,
-    email,
-    password,
-    checkRoledupdate,
-    checkLogindupdate,
-  } = useContext(ProfileMenu);
+  //   const {   
+  //   checkRoledupdate,
+  //   checkLogindupdate,
+  // } = useContext(ProfileMenu);
+
+  const dispatch = useDispatch()
+
+  const [email, emailupdate] = useState('')
+  const [password, passwordupdate] = useState('')
   
   const navigate = useNavigate();
   const user = {
     email,
     password,
   };
+
+  console.log(user);
 
   // useEffect(() => {
   //     fetch("http://localhost:5000/users")
@@ -31,25 +37,31 @@ const Login = () => {
     e.preventDefault();
     axios.get("http://localhost:5000/users").then((response) => {
       response.data.map((res) => {
+        console.log(res);
+        console.log(res.email);
         if (
           res.role === "user" &&
           res.password === user.password &&
           res.email === user.email
         ) {
-          checkRoledupdate(false);
-          checkLogindupdate(true);
-          emailupdate("");
-          passwordupdate("");
+          // checkRoledupdate(false);
+          dispatch(blogActions.checkRoleFalse())
+          dispatch(blogActions.checkLoginTrue())
+          // checkLogindupdate(true);
+          // emailupdate("");
+          // passwordupdate("");
           navigate("/");
         } else if (
           res.role === "admin" &&
           res.password === user.password &&
           res.email === user.email
-        ) {
-          checkRoledupdate(true);
-          checkLogindupdate(true);
-          emailupdate("");
-          passwordupdate("");
+          ) {
+            // checkRoledupdate(true);
+          // checkLogindupdate(true);
+          dispatch(blogActions.checkRoleTrue())
+          dispatch(blogActions.checkLoginTrue())
+            // emailupdate("");
+          // passwordupdate("");
           navigate("/");
         }
       });

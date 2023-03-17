@@ -1,17 +1,27 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
-import { useContext } from "react";
-import { ProfileMenu } from "../context/ProfileMenu";
+import { Link, useNavigate } from "react-router-dom";
+// import { useContext } from "react";
+// import { ProfileMenu } from "../context/ProfileMenu";
+import { useSelector } from "react-redux";
+import { blogActions } from "../Store/Index";
+import { useDispatch } from "react-redux";
 
 export default function Navbar() {
-  const {checkRole, checkLogin, checkRoledupdate, checkLogindupdate, email} = useContext(ProfileMenu)
+  const navigate = useNavigate()
+  // const { checkRoledupdate, checkLogindupdate} = useContext(ProfileMenu)
+  const dispatch = useDispatch()
+  const checkLogin = useSelector(state => state.checkLogin)
+  const checkRole =  useSelector(state => state.checkRole)
 
   const LogoutHandler = () => {
-    checkRoledupdate(false); 
-    checkLogindupdate(false)
+    // checkRoledupdate(false); 
+    dispatch(blogActions.checkRoleFalse())
+    dispatch(blogActions.checkLoginFalse())
+    // checkLogindupdate(false)
+    navigate("/login")
   }
 
-  console.log(email)
+  // console.log(email)
   return (
     <div>
       <nav className="navbar bg-body-tertiary fixed-top" style={{height: "60px"}}>
@@ -34,13 +44,14 @@ export default function Navbar() {
           <Link className="navbar-brand" >
             About
           </Link>
-          {
+          {/* {
             checkLogin && <span>{email.charAt(0)}</span>
-          }
-          <button className="btn btn-outline-secondary" style={{position: "absolute", right: "0"}}>
-          <Link className="navbar-brand" to="/login" onClick={LogoutHandler} >
+          } */}
+          <button className="btn btn-outline-secondary navbar-brand" style={{position: "absolute", right: "0"}} onClick={LogoutHandler}>
+          {/* <Link className="navbar-brand" to="/login"  > */}
             {checkLogin ? 'Logout' : 'Login'}
-          </Link></button>
+          {/* </Link> */}
+          </button>
 
           </div>
 
