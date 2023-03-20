@@ -1,13 +1,22 @@
 import React, { useEffect, useState } from 'react'
+import { getUsers } from "../Store/user-slice";
+import { useSelector, useDispatch } from "react-redux";
 
 const ChangeRole = (user) => {
+
+
  const data = user?.data
  console.log(data);
  const [role, setRole] = useState()
+ const dispatch = useDispatch();
+ const { users } = useSelector((state) => state?.users);
 
  useEffect(() => {
   setRole(data?.role)
  }, [data?.role])
+
+
+
 
  const roleChangeHandler = () => {
 
@@ -21,7 +30,9 @@ const ChangeRole = (user) => {
    body: JSON.stringify(newData),
   })
    .then((response) => response.json())
-   .then((data) => console.log(data))
+   .then((data) => {
+    dispatch(getUsers());
+   })
    .catch((error) => console.error(error));
  }
 

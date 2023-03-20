@@ -4,7 +4,7 @@ import axios from "axios";
 // import { useContext } from "react";
 // import { ProfileMenu } from "../context/ProfileMenu";
 // import { useSelector } from "react-redux";
-import { blogActions } from "../Store/Index";
+// import { blogActions } from "../Store/Index";
 import { useDispatch } from "react-redux";
 
 const Login = () => {
@@ -45,8 +45,8 @@ const Login = () => {
         ) {
           // checkRoledupdate(false);
           // localStorage.setItem("user", res)
-          dispatch(blogActions.checkRoleFalse())
-          dispatch(blogActions.checkLoginTrue())
+          // dispatch(blogActions.checkRoleFalse())
+          // dispatch(blogActions.checkLoginTrue())
           // localStorage.setItem
           return res;
           // checkLogindupdate(true);
@@ -60,8 +60,8 @@ const Login = () => {
           ) {
             // checkRoledupdate(true);
           // checkLogindupdate(true);
-          dispatch(blogActions.checkRoleTrue())
-          dispatch(blogActions.checkLoginTrue())
+          // dispatch(blogActions.checkRoleTrue())
+          // dispatch(blogActions.checkLoginTrue())
           return res;
             // emailupdate("");
           // passwordupdate("");
