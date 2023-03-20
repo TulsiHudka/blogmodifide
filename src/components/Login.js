@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, Navigate, useNavigate } from "react-router-dom";
 import axios from "axios";
 // import { useContext } from "react";
 // import { ProfileMenu } from "../context/ProfileMenu";
@@ -36,21 +36,23 @@ const Login = () => {
   function ProceedLogin(e) {
     e.preventDefault();
     axios.get("http://localhost:5000/users").then((response) => {
-      response.data.map((res) => {
-        console.log(res);
-        console.log(res.email);
+     const user1 = response.data.filter((res) => {
+        // console.log(res);
         if (
           res.role === "user" &&
           res.password === user.password &&
           res.email === user.email
         ) {
           // checkRoledupdate(false);
+          // localStorage.setItem("user", res)
           dispatch(blogActions.checkRoleFalse())
           dispatch(blogActions.checkLoginTrue())
+          // localStorage.setItem
+          return res;
           // checkLogindupdate(true);
           // emailupdate("");
           // passwordupdate("");
-          navigate("/");
+          // navigate("/");
         } else if (
           res.role === "admin" &&
           res.password === user.password &&
@@ -60,11 +62,18 @@ const Login = () => {
           // checkLogindupdate(true);
           dispatch(blogActions.checkRoleTrue())
           dispatch(blogActions.checkLoginTrue())
+          return res;
             // emailupdate("");
           // passwordupdate("");
-          navigate("/");
+          // navigate("/");
         }
       });
+      console.log(user1);
+      if(user1.length>0){
+        const user12 = user1[0]
+        localStorage.setItem("user", JSON.stringify(user12))
+        navigate("/")
+      }
     });
   }
 

@@ -10,12 +10,13 @@ import { useDispatch } from "react-redux";
 import "ag-grid-community/styles/ag-grid.css"; // Core grid CSS, always needed
 import "ag-grid-community/styles/ag-theme-alpine.css"; // Optional theme CSS
 
-function Blogs() {
+function MyBlog() {
   // const { checkRole, checkLogin } = useContext(ProfileMenu);
   const [rowData, setRowData] = useState([]);
   const nevigate = useNavigate();
   const isLogin = JSON.parse(localStorage.getItem("user"))
-
+  const username = isLogin.email.substring(0, isLogin.email.indexOf("@"))
+console.log(username);
   
   // const dispatch = useDispatch()
   const checkLogin = useSelector(state => state.checkLogin) 
@@ -24,7 +25,20 @@ function Blogs() {
   useEffect(() => {
     fetch("http://localhost:5000/blogs")
       .then((response) => response.json())
-      .then((data) => setRowData(data))
+      .then((data) => {
+        // console.log(data);
+       const adminBlog = data.filter((res) => {
+        // console.log(res);  
+        if(res.admin === username){
+          console.log(res);
+          return res;
+        }
+        
+      })
+      console.log(adminBlog);
+      setRowData(adminBlog)
+        // console.log(adminBlog);
+      })
       .catch((error) => console.error(error));
   }, []);
 
@@ -39,6 +53,7 @@ function Blogs() {
         fetch(`http://localhost:5000/blogs`)
           .then((response) => response.json())
           .then((data) => setRowData(data));
+          nevigate("/")
       });
   };
 
@@ -49,7 +64,7 @@ function Blogs() {
     //   .then((response) => response.json())
     //   .then((data) => {
     //     console.log(data);
-    nevigate(`edit/${id}`);
+    nevigate(`/edit/${id}`);
     // });
   };
 
@@ -136,4 +151,4 @@ const checkRole =  useSelector(state => state.checkRole)
   );
 }
 
-export default Blogs;
+export default MyBlog;

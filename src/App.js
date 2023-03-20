@@ -12,6 +12,7 @@ import AddBlog from "./components/AddBlog";
 // import { useSelector } from "react-redux";
 import {Provider} from "react-redux";
 import { store } from "./Store/Index";
+import MyBlog from "./components/MyBlog";
 
 function App() {
   // const [email, emailupdate] = useState('');
@@ -32,6 +33,7 @@ function App() {
           <Route path="/:blogId" element={<BlogPost />}></Route>
           <Route path="/edit/:id" element={<EditBlog />}></Route>
           <Route path="/addBlog" element={<AddBlog />}></Route>
+          <Route path="/myBlog" element={<MyBlog />}></Route>
           </Routes>
         </ProfileMenu.Provider>
       </BrowserRouter>

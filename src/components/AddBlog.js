@@ -7,6 +7,10 @@ function AddBlog() {
     const navigate = useNavigate();
   // console.log(id);
 //   const [blog, setBlog] = useState("");
+ const isLogin = JSON.parse(localStorage.getItem("user"))
+ console.log(isLogin.email);
+ const username = isLogin.email.substring(0, isLogin.email.indexOf("@"))
+ console.log(username);
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [author, setAuthor] = useState("");
@@ -16,6 +20,7 @@ function AddBlog() {
     description,
     author,
     category,
+    admin: username
   };
   console.log(newBlog);
   function handleSubmit(e) {

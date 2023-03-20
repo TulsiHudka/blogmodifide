@@ -7,61 +7,79 @@ import { blogActions } from "../Store/Index";
 import { useDispatch } from "react-redux";
 
 export default function Navbar() {
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   // const { checkRoledupdate, checkLogindupdate} = useContext(ProfileMenu)
-  const dispatch = useDispatch()
-  const checkLogin = useSelector(state => state.checkLogin)
-  const checkRole =  useSelector(state => state.checkRole)
+  // const dispatch = useDispatch();
+  // const checkLogin = useSelector((state) => state.checkLogin);
+  // const checkRole = useSelector((state) => state.checkRole);
+  const isLogin = JSON.parse(localStorage.getItem("user"));
 
   const LogoutHandler = () => {
-    // checkRoledupdate(false); 
-    dispatch(blogActions.checkRoleFalse())
-    dispatch(blogActions.checkLoginFalse())
+    // checkRoledupdate(false);
+    // dispatch(blogActions.checkRoleFalse());
+    // dispatch(blogActions.checkLoginFalse());
+    localStorage.removeItem("user");
     // checkLogindupdate(false)
-    navigate("/login")
+    navigate("/login");
+  };
+
+  const addBlogHandler = () => {
+    navigate("/addBlog")
   }
 
-  // console.log(email)
+  console.log(isLogin);
   return (
     <div>
-      <nav className="navbar bg-body-tertiary fixed-top" style={{height: "60px"}}>
+      <nav
+        className="navbar bg-body-tertiary fixed-top"
+        style={{ height: "60px" }}
+      >
         <div>
           <div>
-          { checkRole && <button
-              className="navbar-toggler ms-2"
-              type="button"
-              data-bs-toggle="offcanvas"
-              data-bs-target="#offcanvasNavbar"
-              aria-controls="offcanvasNavbar"
-              style={{ marginRight: "1rem" }}
-            >
-              <span className="navbar-toggler-icon"></span>
-            </button>
-          }
-          <Link className="navbar-brand ms-3" to="/">
-            Home
-          </Link>
-          <Link className="navbar-brand" >
-            About
-          </Link>
-          {/* {
+            {isLogin?.role === "admin" && (
+              <button
+                className="navbar-toggler ms-2"
+                type="button"
+                data-bs-toggle="offcanvas"
+                data-bs-target="#offcanvasNavbar"
+                aria-controls="offcanvasNavbar"
+                style={{ marginRight: "1rem" }}
+              >
+                <span className="navbar-toggler-icon"></span>
+              </button>
+            )}
+            <Link className="navbar-brand ms-3" to="/">
+              Home
+            </Link>
+            <Link className="navbar-brand">About</Link>
+            {/* {
             checkLogin && <span>{email.charAt(0)}</span>
           } */}
-          <button className="btn btn-outline-secondary navbar-brand" style={{position: "absolute", right: "0"}} onClick={LogoutHandler}>
-          {/* <Link className="navbar-brand" to="/login"  > */}
-            {checkLogin ? 'Logout' : 'Login'}
-          {/* </Link> */}
-          </button>
+            <button
+              className="btn btn-outline-secondary navbar-brand"
+              style={{ position: "absolute", right: "0" }}
+              onClick={LogoutHandler}
+            >
+              {/* <Link className="navbar-brand" to="/login"  > */}
+              {isLogin ? "Logout" : "Login"}
+              {/* </Link> */}
+            </button>
 
+            {isLogin && (<button
+              className="btn btn-outline-secondary navbar-brand"
+              style={{ position: "absolute", right: "100px" }}
+              onClick={addBlogHandler}
+            >
+              Add Blog
+            </button>)}
           </div>
-
 
           <div
             className="offcanvas offcanvas-start"
             tabIndex="-1"
             id="offcanvasNavbar"
             aria-labelledby="offcanvasNavbarLabel"
-            style={{width: "200px"}}
+            style={{ width: "200px" }}
           >
             <div className="offcanvas-header">
               <h5 className="offcanvas-title" id="offcanvasNavbarLabel">
@@ -74,30 +92,39 @@ export default function Navbar() {
                 aria-label="Close"
               ></button>
             </div>
-            {checkRole &&
-            <div className="offcanvas-body">
-              <ul className="navbar-nav justify-content-end flex-grow-1 pe-3">
-                <li className="nav-item">
-                <Link className="nav-link active" aria-current="page" to="/addBlog">
-                    Add Blogs
-                  </Link>
-                </li>
-                <li className="nav-item">
-                  <Link className="nav-link active" aria-current="page" to="/">
-                    All Blogs
-                  </Link>
-                </li>
-                <li className="nav-item">
-                  <Link
-                    className="nav-link active"
-                    aria-current="page"
-                    to="/users"
-                  >
-                    User List
-                  </Link>
-                </li>
-              </ul>
-            </div>}
+            {isLogin?.role === "admin" && (
+              <div className="offcanvas-body">
+                <ul className="navbar-nav justify-content-end flex-grow-1 pe-3">
+                  <li className="nav-item">
+                    <Link
+                      className="nav-link active"
+                      aria-current="page"
+                      to="/myBlog"
+                    >
+                      My Blogs
+                    </Link>
+                  </li>
+                  <li className="nav-item">
+                    <Link
+                      className="nav-link active"
+                      aria-current="page"
+                      to="/"
+                    >
+                      All Blogs
+                    </Link>
+                  </li>
+                  <li className="nav-item">
+                    <Link
+                      className="nav-link active"
+                      aria-current="page"
+                      to="/users"
+                    >
+                      User List
+                    </Link>
+                  </li>
+                </ul>
+              </div>
+            )}
           </div>
         </div>
       </nav>
