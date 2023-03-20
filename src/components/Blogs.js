@@ -5,7 +5,7 @@ import classes from "./BlogPost.module.css";
 // import { useContext } from "react";
 // import { ProfileMenu } from "../context/ProfileMenu";
 import { useSelector } from "react-redux";
-import { useDispatch } from "react-redux";
+// import { useDispatch } from "react-redux";
 
 import "ag-grid-community/styles/ag-grid.css"; // Core grid CSS, always needed
 import "ag-grid-community/styles/ag-theme-alpine.css"; // Optional theme CSS
@@ -15,10 +15,11 @@ function Blogs() {
   const [rowData, setRowData] = useState([]);
   const nevigate = useNavigate();
   const isLogin = JSON.parse(localStorage.getItem("user"))
+  console.log(isLogin);
 
-  
+
   // const dispatch = useDispatch()
-  const checkLogin = useSelector(state => state.checkLogin) 
+  const checkLogin = useSelector(state => state.checkLogin)
 
   // console.log(checkRole);
   useEffect(() => {
@@ -55,23 +56,24 @@ function Blogs() {
 
   const [columnDefs, setcolumnDefs] = useState([
     { field: "id" },
-    {
-      headerName: "Title",
-      field: "title",
-      cellRenderer: (e) => {
-        const blogId = e.data.id;
-        return (
-          <Link to={`/${blogId}`} className={classes.blogTitle}>
-            {e.value}
-          </Link>
-        );
-      },
-    },
+    isLogin?.role === "admin" ?
+      {
+        headerName: "Title",
+        field: "title",
+        cellRenderer: (e) => {
+          const blogId = e.data.id;
+          return (
+            <Link to={`/${blogId}`} className={classes.blogTitle}>
+              {e.value}
+            </Link>
+          );
+        },
+      } : { field: "title" },
     { field: "description" },
     { field: "author" },
     { field: "category" },
     // checkRole &&
-    {
+    isLogin?.role === "admin" && {
       field: "actions",
       cellRendererFramework: ({ data }) => (
         <div>
@@ -86,31 +88,45 @@ function Blogs() {
       ),
     },
   ]);
-const checkRole =  useSelector(state => state.checkRole) 
+
+
+  const checkRole = useSelector(state => state.checkRole)
 
   useEffect(() => {
-    if (!isLogin?.role === "admin") {
+    if (!isLogin) {
       setcolumnDefs([
         { field: "id" },
-        isLogin?.role === "user" ?
+        { field: "title" },
+        { field: "description" },
+        { field: "author" },
+        { field: "category" }
+      ]);
+    }
+  }, [isLogin])
+
+  useEffect(() => {
+    if (isLogin?.role === "user") {
+      setcolumnDefs([
+        { field: "id" },
         {
           headerName: "Title",
           field: "title",
           cellRenderer: (e) => {
             const blogId = e.data.id;
+            console.log(blogId);
             return (
               <Link to={`/${blogId}`} className={classes.blogTitle}>
                 {e.value}
               </Link>
             );
           },
-        } : { field: "title" },
+        },
         { field: "description" },
         { field: "author" },
         { field: "category" }
       ]);
     }
-  }, [ isLogin]);
+  }, []);
 
   const defaultColDef = {
     sortable: true,

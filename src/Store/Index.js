@@ -1,9 +1,9 @@
 import { configureStore, combineReducers } from "@reduxjs/toolkit";
-import { blogReducer } from "./blog-slice";
+// import { blogReducer } from "./blog-slice";
 import { usersReducer } from "./user-slice";
 
 const rootReducer = combineReducers({
-  blog: blogReducer,
+//   blog: blogReducer,
   users:usersReducer,
 });
 

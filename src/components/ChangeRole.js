@@ -15,9 +15,6 @@ const ChangeRole = (user) => {
   setRole(data?.role)
  }, [data?.role])
 
-
-
-
  const roleChangeHandler = () => {
 
   const newData = { ...data, role: role }
