@@ -119,7 +119,7 @@ const checkRole =  useSelector(state => state.checkRole)
       className="ag-theme-alpine"
       style={{
         height: "500px",
-        width: checkRole ? "90vw" : "80vw",
+        width: checkRole ? "95vw" : "80vw",
         margin: "100px auto",
       }}
     >
