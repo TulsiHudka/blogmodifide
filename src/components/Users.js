@@ -20,7 +20,15 @@ function Users() {
   {field:"lastname"},
   {field:"email"},
   {field:"phoneNumber"},
-  {field:"role"}
+  {field:"role"},
+   {
+      field: "actions",
+      cellRenderer: (e) => {
+        return (
+          <button className="btn btn-outline-secondary navbar-brand" data-bs-toggle="modal" data-bs-target="#exampleModal" onClick={() => roleHandler(e.data)}>Change Role</button>
+        );
+      },
+    }
  ];
  
   return (
