@@ -2,9 +2,10 @@ import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 // import { useContext } from "react";
 // import { ProfileMenu } from "../context/ProfileMenu";
-import { useSelector } from "react-redux";
-import { blogActions } from "../Store/Index";
-import { useDispatch } from "react-redux";
+// import { useSelector } from "react-redux";
+// import { blogActions } from "../Store/Index";
+// import { useDispatch } from "react-redux";
+import classes from "./Navbar.module.css"
 
 export default function Navbar() {
   const navigate = useNavigate();
@@ -31,7 +32,7 @@ export default function Navbar() {
   return (
     <div>
       <nav
-        className="navbar bg-body-tertiary fixed-top"
+        className = {` navbar fixed-top ${classes.navbarColor}`} 
         style={{ height: "60px" }}
       >
         <div>
@@ -43,31 +44,31 @@ export default function Navbar() {
                 data-bs-toggle="offcanvas"
                 data-bs-target="#offcanvasNavbar"
                 aria-controls="offcanvasNavbar"
-                style={{ marginRight: "1rem" }}
+                style={{ marginRight: "1rem", backgroundColor: "#d1e8e2"}}
               >
                 <span className="navbar-toggler-icon"></span>
               </button>
             )}
-            <Link className="navbar-brand ms-3" to="/">
+            <Link className="navbar-brand ms-3" style={{color: "#d1e8e2"}} to="/">
               Home
             </Link>
-            <Link className="navbar-brand">About</Link>
+            <Link className="navbar-brand" style={{color: "#d1e8e2"}}>About</Link>
             {/* {
             checkLogin && <span>{email.charAt(0)}</span>
           } */}
             <button
-              className="btn btn-outline-secondary navbar-brand"
+              className={`btn navbar-brand ${classes.navButton}`}
               style={{ position: "absolute", right: "0" }}
               onClick={LogoutHandler}
             >
-              {/* <Link className="navbar-brand" to="/login"  > */}
+
               {isLogin ? "Logout" : "Login"}
-              {/* </Link> */}
+
             </button>
 
             {isLogin && (<button
-              className="btn btn-outline-secondary navbar-brand"
-              style={{ position: "absolute", right: "100px" }}
+              className={`btn navbar-brand ${classes.navButton}`}
+              style={{ position: "absolute", right: "100px"}}
               onClick={addBlogHandler}
             >
               Add Blog
@@ -75,7 +76,7 @@ export default function Navbar() {
           </div>
 
           <div
-            className="offcanvas offcanvas-start"
+            className={`offcanvas offcanvas-start ${classes.offcanvas}`}
             tabIndex="-1"
             id="offcanvasNavbar"
             aria-labelledby="offcanvasNavbarLabel"
@@ -88,6 +89,7 @@ export default function Navbar() {
               <button
                 type="button"
                 className="btn-close"
+               
                 data-bs-dismiss="offcanvas"
                 aria-label="Close"
               ></button>

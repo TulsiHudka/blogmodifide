@@ -17,17 +17,7 @@ margin-top: 2rem;
 
 .blogTitle{
     /* text-decoration: none; */
-    color: rgb(118 76 76);
+    color: #116466;
     font-weight: 500;
-    text-underline-offset: 4px;
-}
-
-
-/* blogs */
-.editButton{
-    margin-right: 5px;
-}
-.editLink{
-    text-decoration: none;
-    color: #000;
+    text-underline-offset: 3px;
 }

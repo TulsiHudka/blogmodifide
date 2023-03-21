@@ -6,6 +6,9 @@ import classes from "./BlogPost.module.css";
 // import { ProfileMenu } from "../context/ProfileMenu";
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
+import styled from "styled-components";
+import styles from "./EditBlog.module.css"
+
 
 import "ag-grid-community/styles/ag-grid.css"; // Core grid CSS, always needed
 import "ag-grid-community/styles/ag-theme-alpine.css"; // Optional theme CSS
@@ -69,7 +72,7 @@ console.log(username);
   };
 
   const [columnDefs, setcolumnDefs] = useState([
-    { field: "id" },
+    { field: "id", flex: 1 },
     {
       headerName: "Title",
       field: "title",
@@ -89,43 +92,43 @@ console.log(username);
     {
       field: "actions",
       cellRendererFramework: ({ data }) => (
-        <div>
-          <button
+        <div className={styles.buttonContainer}>
+          <button className={`btn ${styles.edit_delete_button}`} 
             onClick={() => editHandler(data.id)}
-            className={classes.editButton}
           >
             Edit{" "}
           </button>
-          <button onClick={() => deleteHandler(data.id)}>Delete</button>
+          <button className={`btn ${styles.edit_delete_button}`} 
+          onClick={() => deleteHandler(data.id)}>Delete</button>
         </div>
       ),
     },
   ]);
-const checkRole =  useSelector(state => state.checkRole) 
+// const checkRole =  useSelector(state => state.checkRole) 
 
-  useEffect(() => {
-    if (!isLogin?.role === "admin") {
-      setcolumnDefs([
-        { field: "id" },
-        isLogin?.role === "user" ?
-        {
-          headerName: "Title",
-          field: "title",
-          cellRenderer: (e) => {
-            const blogId = e.data.id;
-            return (
-              <Link to={`/${blogId}`} className={classes.blogTitle}>
-                {e.value}
-              </Link>
-            );
-          },
-        } : { field: "title" },
-        { field: "description" },
-        { field: "author" },
-        { field: "category" }
-      ]);
-    }
-  }, [ isLogin]);
+  // useEffect(() => {
+  //   if (!isLogin?.role === "admin") {
+  //     setcolumnDefs([
+  //       { field: "id" },
+  //       isLogin?.role === "user" ?
+  //       {
+  //         headerName: "Title",
+  //         field: "title",
+  //         cellRenderer: (e) => {
+  //           const blogId = e.data.id;
+  //           return (
+  //             <Link to={`/${blogId}`} className={classes.blogTitle}>
+  //               {e.value}
+  //             </Link>
+  //           );
+  //         },
+  //       } : { field: "title" },
+  //       { field: "description" },
+  //       { field: "author" },
+  //       { field: "category" }
+  //     ]);
+  //   }
+  // }, [ isLogin]);
 
   const defaultColDef = {
     sortable: true,
@@ -134,11 +137,13 @@ const checkRole =  useSelector(state => state.checkRole)
   };
 
   return (
+    <Wrapper>
     <div
       className="ag-theme-alpine"
       style={{
         height: "500px",
-        width: isLogin ? "95vw" : "80vw",
+        width: "87vw",
+        // width: isLogin ? "90vw" : "80vw",
         margin: "100px auto",
       }}
     >
@@ -146,9 +151,24 @@ const checkRole =  useSelector(state => state.checkRole)
         columnDefs={columnDefs}
         defaultColDef={defaultColDef}
         rowData={rowData}
+        animateRows={true}
+        // onGridReady={onGridReady}
+        paginationAutoPageSize={true}
+        pagination={true}
       />
     </div>
+    </Wrapper>
   );
 }
+
+const Wrapper = styled.section`
+.ag-theme-alpine{
+  --ag-header-foreground-color: #D1E8E2;
+  --ag-header-background-color: #116466;
+  --ag-odd-row-background-color: rgb(181 215 217);
+  --ag-foreground-color: #2C3531;
+    --ag-background-color: #f0f9f7  
+}
+`
 
 export default MyBlog;

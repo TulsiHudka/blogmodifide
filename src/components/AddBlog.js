@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import classes from "./EditBlog.module.css";
+import styles from "./EditBlog.module.css";
 
 
 function AddBlog() {
@@ -39,7 +39,7 @@ function AddBlog() {
   }
 
   return (
-    <div className={classes.container}>
+    <div className={styles.container}>
       <form onSubmit={handleSubmit}>
         <div class="form-outline mb-4">
           <label class="form-label" for="form4Example1">

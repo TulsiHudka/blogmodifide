@@ -2,10 +2,12 @@ import React, { useState, useEffect } from "react";
 import { AgGridReact } from "ag-grid-react";
 import { Link, useNavigate } from "react-router-dom";
 import classes from "./BlogPost.module.css";
+import styles from "./EditBlog.module.css"
 // import { useContext } from "react";
 // import { ProfileMenu } from "../context/ProfileMenu";
 import { useSelector } from "react-redux";
 // import { useDispatch } from "react-redux";
+import styled from "styled-components";
 
 import "ag-grid-community/styles/ag-grid.css"; // Core grid CSS, always needed
 import "ag-grid-community/styles/ag-theme-alpine.css"; // Optional theme CSS
@@ -55,7 +57,7 @@ function Blogs() {
   };
 
   const [columnDefs, setcolumnDefs] = useState([
-    { field: "id" },
+    { field: "id", flex: 2 },
     isLogin?.role === "admin" ?
       {
         headerName: "Title",
@@ -74,16 +76,16 @@ function Blogs() {
     { field: "category" },
     // checkRole &&
     isLogin?.role === "admin" && {
-      field: "actions",
+      field: "actions", flex: 3,
       cellRendererFramework: ({ data }) => (
-        <div>
-          <button
+        <div className={styles.buttonContainer}>
+          <button className={`btn ${styles.edit_delete_button}`} 
             onClick={() => editHandler(data.id)}
-            className={classes.editButton}
           >
             Edit{" "}
           </button>
-          <button onClick={() => deleteHandler(data.id)}>Delete</button>
+          <button className={`btn ${styles.edit_delete_button}`} 
+          onClick={() => deleteHandler(data.id)}>Delete</button>
         </div>
       ),
     },
@@ -131,15 +133,17 @@ function Blogs() {
   const defaultColDef = {
     sortable: true,
     filter: true,
-    floatingFilter: true
+    floatingFilter: true,
+    resizable: true
   };
 
   return (
+    <Wrapper>
     <div
       className="ag-theme-alpine"
       style={{
-        height: "500px",
-        width: isLogin ? "95vw" : "80vw",
+        height: "483px",
+        width: isLogin ? "83vw" : "80vw",
         margin: "100px auto",
       }}
     >
@@ -147,9 +151,25 @@ function Blogs() {
         columnDefs={columnDefs}
         defaultColDef={defaultColDef}
         rowData={rowData}
+        animateRows={true}
+        // onGridReady={onGridReady}
+        paginationAutoPageSize={true}
+        pagination={true}
       />
     </div>
+
+    </Wrapper>
   );
 }
+
+const Wrapper = styled.section`
+.ag-theme-alpine{
+  --ag-header-foreground-color: #D1E8E2;
+  --ag-header-background-color: #116466;
+  --ag-odd-row-background-color: rgb(181 215 217);
+  --ag-foreground-color: #2C3531;
+    --ag-background-color: #f0f9f7  
+}
+`
 
 export default Blogs;

@@ -1,10 +1,13 @@
 import React from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
-import classes from "./EditBlog.module.css";
+import styles from "./EditBlog.module.css";
 
 
 function EditBlog() {
+  const isLogin = JSON.parse(localStorage.getItem("user"))
+ console.log(isLogin.email);
+ const username = isLogin.email.substring(0, isLogin.email.indexOf("@"))
   const navigate = useNavigate();
   const params = useParams();
   const id = params.id;
@@ -29,6 +32,7 @@ function EditBlog() {
     description,
     author,
     category,
+    admin: username
   };
   console.log(mainBlog);
   function handleSubmit(e) {
@@ -47,7 +51,7 @@ function EditBlog() {
   }
 
   return (
-    <div className={classes.container}>
+    <div className={styles.container}>
       <form onSubmit={handleSubmit}>
         <div class="form-outline mb-4">
           <label class="form-label" for="form4Example1">

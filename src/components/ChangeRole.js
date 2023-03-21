@@ -6,7 +6,7 @@ const ChangeRole = (user) => {
 
 
  const data = user?.data
- console.log(data);
+ console.log(data); 
  const [role, setRole] = useState()
  const dispatch = useDispatch();
  const { users } = useSelector((state) => state?.users);
