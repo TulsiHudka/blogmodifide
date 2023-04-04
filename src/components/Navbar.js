@@ -1,26 +1,12 @@
-import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-// import { useContext } from "react";
-// import { ProfileMenu } from "../context/ProfileMenu";
-// import { useSelector } from "react-redux";
-// import { blogActions } from "../Store/Index";
-// import { useDispatch } from "react-redux";
 import classes from "./Navbar.module.css"
 
 export default function Navbar() {
   const navigate = useNavigate();
-  // const { checkRoledupdate, checkLogindupdate} = useContext(ProfileMenu)
-  // const dispatch = useDispatch();
-  // const checkLogin = useSelector((state) => state.checkLogin);
-  // const checkRole = useSelector((state) => state.checkRole);
   const isLogin = JSON.parse(localStorage.getItem("user"));
 
   const LogoutHandler = () => {
-    // checkRoledupdate(false);
-    // dispatch(blogActions.checkRoleFalse());
-    // dispatch(blogActions.checkLoginFalse());
     localStorage.removeItem("user");
-    // checkLogindupdate(false)
     navigate("/login");
   };
 
@@ -28,11 +14,10 @@ export default function Navbar() {
     navigate("/addBlog")
   }
 
-  console.log(isLogin);
   return (
     <div>
       <nav
-        className = {` navbar fixed-top ${classes.navbarColor}`} 
+        className={` navbar fixed-top ${classes.navbarColor}`}
         style={{ height: "60px" }}
       >
         <div>
@@ -44,37 +29,31 @@ export default function Navbar() {
                 data-bs-toggle="offcanvas"
                 data-bs-target="#offcanvasNavbar"
                 aria-controls="offcanvasNavbar"
-                style={{ marginRight: "1rem", backgroundColor: "#d1e8e2"}}
+                style={{ marginRight: "1rem", backgroundColor: "#d1e8e2" }}
               >
                 <span className="navbar-toggler-icon"></span>
               </button>
             )}
-            <Link className="navbar-brand ms-3" style={{color: "#d1e8e2"}} to="/">
+            <Link className="navbar-brand ms-3" style={{ color: "#d1e8e2" }} to="/">
               Home
             </Link>
-            <Link className="navbar-brand" style={{color: "#d1e8e2"}}>About</Link>
-            {/* {
-            checkLogin && <span>{email.charAt(0)}</span>
-          } */}
+            <Link className="navbar-brand" style={{ color: "#d1e8e2" }}>About</Link>
             <button
               className={`btn navbar-brand ${classes.navButton}`}
               style={{ position: "absolute", right: "0" }}
               onClick={LogoutHandler}
             >
-
               {isLogin ? "Logout" : "Login"}
-
             </button>
 
             {isLogin && (<button
               className={`btn navbar-brand ${classes.navButton}`}
-              style={{ position: "absolute", right: "100px"}}
+              style={{ position: "absolute", right: "100px" }}
               onClick={addBlogHandler}
             >
               Add Blog
             </button>)}
           </div>
-
           <div
             className={`offcanvas offcanvas-start ${classes.offcanvas}`}
             tabIndex="-1"
@@ -89,7 +68,7 @@ export default function Navbar() {
               <button
                 type="button"
                 className="btn-close"
-               
+
                 data-bs-dismiss="offcanvas"
                 aria-label="Close"
               ></button>

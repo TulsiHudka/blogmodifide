@@ -1,39 +1,24 @@
 import React, { useState, useEffect } from "react";
 import { AgGridReact } from "ag-grid-react";
-
-import "ag-grid-community/styles/ag-grid.css"; // Core grid CSS, always needed
-import "ag-grid-community/styles/ag-theme-alpine.css"; // Optional theme CSS
+import "ag-grid-community/styles/ag-grid.css";
+import "ag-grid-community/styles/ag-theme-alpine.css";
 import ChangeRole from "./ChangeRole";
 import { getUsers } from "../Store/user-slice";
 import { useSelector, useDispatch } from "react-redux";
 import styles from "./EditBlog.module.css"
 import styled from "styled-components";
 
-
 function Users() {
-  // const [rowData, setRowData] = useState([]);
   const [data, setData] = useState({})
+  const dispatch = useDispatch();
+  const { users } = useSelector((state) => state?.users);
   const roleHandler = (data) => {
     setData(data)
   }
 
-  // const Users = () => {
-  const dispatch = useDispatch();
-  const { users } = useSelector((state) => state?.users);
-
-
   useEffect(() => {
     dispatch(getUsers());
   }, [dispatch]);
-
-  // useEffect(() => {
-  //   fetch("http://localhost:5000/users")
-  //     .then((response) => response.json())
-  //     .then((data) => setRowData(data))
-  //     .catch((error) => console.error(error));
-  // }, []);
-
-
 
   const columnDefs = [
     { field: "id", flex: 2 },
@@ -47,14 +32,14 @@ function Users() {
       cellRenderer: (e) => {
         return (
           <div className={styles.buttonContainer}>
-          <button
-            className={`btn ${styles.edit_delete_button}`}
-            data-bs-toggle="modal"
-            data-bs-target="#exampleModal"
-            onClick={() => roleHandler(e.data)}
-          >
-            Change Role
-          </button>
+            <button
+              className={`btn ${styles.edit_delete_button}`}
+              data-bs-toggle="modal"
+              data-bs-target="#exampleModal"
+              onClick={() => roleHandler(e.data)}
+            >
+              Change Role
+            </button>
           </div>
         );
       },
@@ -76,7 +61,7 @@ function Users() {
           style={{ height: "485px", width: "92vw", margin: "100px auto" }}
         >
           <AgGridReact columnDefs={columnDefs} rowData={users} defaultColDef={defaultColDef} paginationAutoPageSize={true}
-        pagination={true}/>
+            pagination={true} />
         </div>
         <ChangeRole
           data={data} />
@@ -84,6 +69,7 @@ function Users() {
     </Wrapper>
   );
 }
+
 const Wrapper = styled.section`
 .ag-theme-alpine{
   --ag-header-foreground-color: #D1E8E2;
@@ -93,5 +79,4 @@ const Wrapper = styled.section`
     --ag-background-color: #f0f9f7  
 }
 `
-
 export default Users;

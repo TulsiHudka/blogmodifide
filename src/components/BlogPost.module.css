@@ -1,23 +1,23 @@
-.container{
-    margin: 5rem 3rem 0 ;
-    text-align: center;
-
+.container {
+  margin: 5rem 3rem 0;
+  text-align: center;
 }
 
-.title{
- margin-top: 5rem;
+.title {
+  margin-top: 5rem;
 }
 
-.author{
-margin-top: 2rem;
+.author {
+  margin-top: 2rem;
 }
 
-.description{    margin: 1rem 3rem 0;
+.description {
+  margin: 1rem 3rem 0;
 }
 
-.blogTitle{
-    /* text-decoration: none; */
-    color: #116466;
-    font-weight: 500;
-    text-underline-offset: 3px;
+.blogTitle {
+  /* text-decoration: none; */
+  color: #116466;
+  font-weight: 500;
+  text-underline-offset: 3px;
 }

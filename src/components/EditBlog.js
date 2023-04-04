@@ -6,17 +6,16 @@ import styles from "./EditBlog.module.css";
 
 function EditBlog() {
   const isLogin = JSON.parse(localStorage.getItem("user"))
- console.log(isLogin.email);
  const username = isLogin.email.substring(0, isLogin.email.indexOf("@"))
   const navigate = useNavigate();
   const params = useParams();
   const id = params.id;
-  console.log(id);
   const [blog, setBlog] = useState("");
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [author, setAuthor] = useState("");
   const [category, setCategory] = useState("");
+  
   useEffect(() => {
     fetch(`http://localhost:5000/blogs/${id}`)
       .then((response) => response.json())

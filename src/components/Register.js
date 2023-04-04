@@ -7,7 +7,6 @@ const Register = () => {
   const [password, passwordchange] = useState("");
   const [email, emailchange] = useState("");
   const [phoneNumber, phoneNumberchange] = useState("");
-
   const navigate = useNavigate();
 
   const IsValidate = () => {
@@ -49,7 +48,6 @@ const Register = () => {
       phoneNumber,
     };
     if (IsValidate()) {
-      //console.log(regobj);
       fetch("http://localhost:5000/users", {
         method: "POST",
         headers: { "content-type": "application/json" },
