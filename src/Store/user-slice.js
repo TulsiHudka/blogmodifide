@@ -6,7 +6,7 @@ export const getUsers = createAsyncThunk(
   'users/getUsers',
   async () => {
     try {
-      const response = await axios.get("http://localhost:5000/users");
+      const response = await axios.get("http://localhost:8000/users");
       return response.data;
     } catch (error) {
       toast.error(error.message + "Blogs");
