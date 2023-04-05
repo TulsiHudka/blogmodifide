@@ -46,7 +46,7 @@ export default function Navbar() {
               {isLogin ? "Logout" : "Login"}
             </button>
 
-            {isLogin && (<button
+            {isLogin?.role === "admin" && (<button
               className={`btn navbar-brand ${classes.navButton}`}
               style={{ position: "absolute", right: "100px" }}
               onClick={addBlogHandler}

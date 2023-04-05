@@ -17,7 +17,7 @@ function EditBlog() {
   const [category, setCategory] = useState("");
   
   useEffect(() => {
-    fetch(`http://localhost:5000/blogs/${id}`)
+    fetch(`http://localhost:8000/blogs/${id}`)
       .then((response) => response.json())
       .then((data) => setBlog(data));
     setTitle(blog.title);
@@ -36,7 +36,7 @@ function EditBlog() {
   console.log(mainBlog);
   function handleSubmit(e) {
     e.preventDefault();
-    fetch(`http://localhost:5000/blogs/${id}`, {
+    fetch(`http://localhost:8000/edit/${id}`, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",

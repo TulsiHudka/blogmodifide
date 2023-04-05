@@ -14,7 +14,7 @@ function MyBlog() {
   const username = isLogin.email.substring(0, isLogin.email.indexOf("@"))
 
   useEffect(() => {
-    fetch("http://localhost:5000/blogs")
+    fetch("http://localhost:8000/blogs")
       .then((response) => response.json())
       .then((data) => {
         const adminBlog = data.filter((res) => {
@@ -30,15 +30,15 @@ function MyBlog() {
 
   const deleteHandler = (id) => {
     console.log(`Button clicked for row with ID ${id}`);
-    fetch(`http://localhost:5000/blogs/${id}`, {
+    fetch(`http://localhost:8000/blogs/${id}`, {
       method: "DELETE",
     })
       .then((response) => response.json())
       .then(() => {
-        fetch(`http://localhost:5000/blogs`)
+        fetch(`http://localhost:8000/blogs`)
           .then((response) => response.json())
           .then((data) => setRowData(data));
-        nevigate("/")
+          nevigate("/")
       });
   };
 
@@ -68,12 +68,12 @@ function MyBlog() {
       cellRendererFramework: ({ data }) => (
         <div className={styles.buttonContainer}>
           <button className={`btn ${styles.edit_delete_button}`}
-            onClick={() => editHandler(data.id)}
+            onClick={() => editHandler(data._id)}
           >
             Edit{" "}
           </button>
           <button className={`btn ${styles.edit_delete_button}`}
-            onClick={() => deleteHandler(data.id)}>Delete</button>
+            onClick={() => deleteHandler(data._id)}>Delete</button>
         </div>
       ),
     },

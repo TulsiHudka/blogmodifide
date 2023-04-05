@@ -21,7 +21,7 @@ function AddBlog() {
   console.log(newBlog);
   function handleSubmit(e) {
     e.preventDefault();
-    fetch(`http://localhost:5000/blogs`, {
+    fetch(`http://localhost:8000/addBlog`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

@@ -13,7 +13,7 @@ function Blogs() {
   const isLogin = JSON.parse(localStorage.getItem("user"))
 
   useEffect(() => {
-    fetch("http://localhost:5000/blogs")
+    fetch("http://localhost:8000/blogs")
       .then((response) => response.json())
       .then((data) => setRowData(data))
       .catch((error) => console.error(error));
@@ -21,12 +21,12 @@ function Blogs() {
 
   const deleteHandler = (id) => {
     console.log(`Button clicked for row with ID ${id}`);
-    fetch(`http://localhost:5000/blogs/${id}`, {
+    fetch(`http://localhost:8000/blogs/${id}`, {
       method: "DELETE",
     })
       .then((response) => response.json())
       .then(() => {
-        fetch(`http://localhost:5000/blogs`)
+        fetch(`http://localhost:8000/blogs`)
           .then((response) => response.json())
           .then((data) => setRowData(data));
       });
@@ -43,9 +43,9 @@ function Blogs() {
         headerName: "Title",
         field: "title",
         cellRenderer: (e) => {
-          const blogId = e.data.id;
+          const blogId = e.data
           return (
-            <Link to={`/${blogId}`} className={classes.blogTitle}>
+            <Link to={``} className={classes.blogTitle}>
               {e.value}
             </Link>
           );
@@ -59,12 +59,12 @@ function Blogs() {
       cellRendererFramework: ({ data }) => (
         <div className={styles.buttonContainer}>
           <button className={`btn ${styles.edit_delete_button}`}
-            onClick={() => editHandler(data.id)}
+            onClick={() => editHandler(data._id)}
           >
             Edit{" "}
           </button>
           <button className={`btn ${styles.edit_delete_button}`}
-            onClick={() => deleteHandler(data.id)}>Delete</button>
+            onClick={() => deleteHandler(data._id)}>Delete</button>
         </div>
       ),
     },

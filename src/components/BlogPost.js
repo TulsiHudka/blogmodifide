@@ -9,7 +9,7 @@ function BlogPost() {
   console.log(params.blogId);
 
   useEffect(() => {
-    fetch(`http://localhost:5000/Blogs/${params.blogId}`)
+    fetch(`http://localhost:5000/blogs/${params.blogId}`)
       .then((response) => response.json())
       .then((blog) => setBlogDetail(blog))
       .catch((error) => console.error(error));
