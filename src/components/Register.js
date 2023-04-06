@@ -47,19 +47,20 @@ const Register = () => {
       role: "user",
       phoneNumber,
     };
+    // console.log(regobj);
     if (IsValidate()) {
-      fetch("http://localhost:5000/users", {
-        method: "POST",
-        headers: { "content-type": "application/json" },
-        body: JSON.stringify(regobj),
+    fetch("http://localhost:8000/register", {
+      method: "POST",
+      headers: { "content-type": "application/json" },
+      body: JSON.stringify(regobj),
+    })
+      .then((res) => {
+        alert("Registered successfully");
+        navigate("/");
       })
-        .then((res) => {
-          alert("Registered successfully");
-          navigate("/");
-        })
-        .catch((err) => {
-          alert("Something went wrong!!");
-        });
+      .catch((err) => {
+        alert("Something went wrong!!");
+      });
     }
   };
   return (

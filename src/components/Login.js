@@ -14,7 +14,7 @@ const Login = () => {
 
   function ProceedLogin(e) {
     e.preventDefault();
-    axios.get("http://localhost:5000/users").then((response) => {
+    axios.get("http://localhost:8000/users").then((response) => {
       console.log(response);
       const user1 = response.data.filter((res) => {
         if (
