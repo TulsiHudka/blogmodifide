@@ -9,8 +9,16 @@ import "ag-grid-community/styles/ag-theme-alpine.css";
 
 function Blogs() {
   const [rowData, setRowData] = useState([]);
+  // const [tokenValue, setTokenValue] = useState("");
+
   const nevigate = useNavigate();
   const isLogin = JSON.parse(localStorage.getItem("user"))
+  const token = JSON.parse(localStorage.getItem("token"))
+  // useEffect(() => {
+  //   if (isLogin) {
+  //     setTokenValue(token);
+  //   }
+  // }, [])
 
   useEffect(() => {
     fetch("http://localhost:8000/blogs")
@@ -19,16 +27,21 @@ function Blogs() {
       .catch((error) => console.error(error));
   }, []);
 
+
   const deleteHandler = (id) => {
     console.log(`Button clicked for row with ID ${id}`);
     fetch(`http://localhost:8000/blogs/${id}`, {
       method: "DELETE",
+      headers: {
+        Authorization: "Bearer " + token
+      }
     })
       .then((response) => response.json())
       .then(() => {
         fetch(`http://localhost:8000/blogs`)
           .then((response) => response.json())
           .then((data) => setRowData(data));
+        nevigate("/")
       });
   };
 
@@ -90,7 +103,7 @@ function Blogs() {
           headerName: "Title",
           field: "title",
           cellRenderer: (e) => {
-            const blogId = e.data.id;
+            const blogId = e.data._id;
             console.log(blogId);
             return (
               <Link to={`/${blogId}`} className={classes.blogTitle}>

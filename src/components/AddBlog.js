@@ -1,16 +1,17 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import styles from "./EditBlog.module.css";
 
 
 function AddBlog() {
-  const isLogin = JSON.parse(localStorage.getItem("user"))
-  const username = isLogin.email.substring(0, isLogin.email.indexOf("@"))
   const navigate = useNavigate();
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [author, setAuthor] = useState("");
   const [category, setCategory] = useState("");
+  const token = JSON.parse(localStorage.getItem("token"))
+  const isLogin = JSON.parse(localStorage.getItem("user"))
+  const username = isLogin.email.substring(0, isLogin.email.indexOf("@"))
   const newBlog = {
     title,
     description,
@@ -25,6 +26,7 @@ function AddBlog() {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
+        Authorization: "Bearer " + token
       },
       body: JSON.stringify(newBlog),
     })

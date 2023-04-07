@@ -5,8 +5,15 @@ import { toast } from "react-toastify";
 export const getUsers = createAsyncThunk(
   'users/getUsers',
   async () => {
+    const token = JSON.parse(localStorage.getItem("token"))
     try {
-      const response = await axios.get("http://localhost:8000/users");
+      const response = await axios.get("http://localhost:8000/users",
+        {
+          headers: {
+            Authorization: "Bearer " + token
+          }
+        }
+      );
       return response.data;
     } catch (error) {
       toast.error(error.message + "Blogs");

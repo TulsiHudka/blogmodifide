@@ -7,9 +7,14 @@ function BlogPost() {
   const params = useParams();
   const [blogDetail, setBlogDetail] = useState({})
   console.log(params.blogId);
+  const token = JSON.parse(localStorage.getItem("token"))
 
   useEffect(() => {
-    fetch(`http://localhost:8000/blogs/${params.blogId}`)
+    fetch(`http://localhost:8000/blogs/${params.blogId}`, {
+      headers: {
+        Authorization: "Bearer " + token
+      },
+    })
       .then((response) => response.json())
       .then((blog) => setBlogDetail(blog))
       .catch((error) => console.error(error));

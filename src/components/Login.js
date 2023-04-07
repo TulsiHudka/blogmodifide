@@ -14,30 +14,22 @@ const Login = () => {
 
   function ProceedLogin(e) {
     e.preventDefault();
-    axios.get("http://localhost:8000/users").then((response) => {
+
+    fetch("http://localhost:8000/login", {
+      method: "POST",
+      headers: { "content-type": "application/json" },
+      body: JSON.stringify({
+        email:user.email,
+        password:user.password
+      }),
+    }).then((data) => {
+      return data.json();
+    }).then((response) => {
       console.log(response);
-      const user1 = response.data.filter((res) => {
-        if (
-          res.role === "user" &&
-          res.password === user.password &&
-          res.email === user.email
-        ) {
-          return res;
-        } else if (
-          res.role === "admin" &&
-          res.password === user.password &&
-          res.email === user.email
-        ) {
-          return res;
-        }
-      });
-      console.log(user1);
-      if (user1.length > 0) {
-        const user12 = user1[0];
-        localStorage.setItem("user", JSON.stringify(user12));
-        navigate("/");
-      }
-    });
+      localStorage.setItem("user", JSON.stringify(response.user));
+      localStorage.setItem("token", JSON.stringify(response.token));
+      navigate("/");
+    })
   }
 
   return (

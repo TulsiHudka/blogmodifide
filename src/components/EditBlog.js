@@ -6,7 +6,8 @@ import styles from "./EditBlog.module.css";
 
 function EditBlog() {
   const isLogin = JSON.parse(localStorage.getItem("user"))
- const username = isLogin.email.substring(0, isLogin.email.indexOf("@"))
+  const token = JSON.parse(localStorage.getItem("token"))
+  const username = isLogin.email.substring(0, isLogin.email.indexOf("@"))
   const navigate = useNavigate();
   const params = useParams();
   const id = params.id;
@@ -15,16 +16,20 @@ function EditBlog() {
   const [description, setDescription] = useState("");
   const [author, setAuthor] = useState("");
   const [category, setCategory] = useState("");
-  
+
   useEffect(() => {
-    fetch(`http://localhost:8000/blogs/${id}`)
+    fetch(`http://localhost:8000/blogs/${id}`, {
+      headers: {
+        Authorization: "Bearer " + token
+      }
+    })
       .then((response) => response.json())
       .then((data) => setBlog(data));
     setTitle(blog.title);
     setDescription(blog.description);
     setAuthor(blog.author);
     setCategory(blog.category);
-  }, [id, blog.title, blog.description, blog.category, blog.author]);
+  }, [id, blog.title, blog.description, blog.category, blog.author, token]);
   console.log(blog);
   const mainBlog = {
     title,
@@ -40,8 +45,9 @@ function EditBlog() {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
+        Authorization: "Bearer " + token
       },
-      body: JSON.stringify(mainBlog),
+      body: JSON.stringify(mainBlog)
     })
       .then((response) => response.json())
       .then((data) => console.log(data))
@@ -56,7 +62,7 @@ function EditBlog() {
           <label class="form-label" for="form4Example1">
             Title
           </label>
-          <input type="text" id="form4Example1" class="form-control" onChange={(event) => setTitle(event.target.value)} value={title}/>
+          <input type="text" id="form4Example1" class="form-control" onChange={(event) => setTitle(event.target.value)} value={title} />
         </div>
 
         <div class="form-outline mb-4">
@@ -70,7 +76,7 @@ function EditBlog() {
           <label class="form-label" for="form4Example2">
             Author
           </label>
-          <input type="text" id="form4Example2" class="form-control" onChange={(event) => setAuthor(event.target.value)} value={author}/>
+          <input type="text" id="form4Example2" class="form-control" onChange={(event) => setAuthor(event.target.value)} value={author} />
         </div>
 
         <div class="form-outline mb-4">

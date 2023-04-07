@@ -10,6 +10,7 @@ import "ag-grid-community/styles/ag-theme-alpine.css";
 function MyBlog() {
   const [rowData, setRowData] = useState([]);
   const nevigate = useNavigate();
+  const token = JSON.parse(localStorage.getItem("token"))
   const isLogin = JSON.parse(localStorage.getItem("user"))
   const username = isLogin.email.substring(0, isLogin.email.indexOf("@"))
 
@@ -32,6 +33,9 @@ function MyBlog() {
     console.log(`Button clicked for row with ID ${id}`);
     fetch(`http://localhost:8000/blogs/${id}`, {
       method: "DELETE",
+      headers: {
+        Authorization: "Bearer " + token
+      }
     })
       .then((response) => response.json())
       .then(() => {
