@@ -6,29 +6,38 @@ import styles from "./EditBlog.module.css";
 function AddBlog() {
   const navigate = useNavigate();
   const [title, setTitle] = useState("");
+  const [url, setUrl] = useState("");
   const [description, setDescription] = useState("");
   const [author, setAuthor] = useState("");
   const [category, setCategory] = useState("");
   const token = JSON.parse(localStorage.getItem("token"))
   const isLogin = JSON.parse(localStorage.getItem("user"))
   const username = isLogin.email.substring(0, isLogin.email.indexOf("@"))
-  const newBlog = {
-    title,
-    description,
-    author,
-    category,
-    admin: username
-  };
-  console.log(newBlog);
+  // const newBlog = {
+  //   title,
+  //   description,
+  //   author,
+  //   category,
+  //   admin: username
+  // };
+  // console.log(newBlog);
+  const formData = new FormData();
+  formData.append("title", title)
+  formData.append("url", url)
+  formData.append("description", description)
+  formData.append("author", author)
+  formData.append("category", category)
+  formData.append("admin", username)
   function handleSubmit(e) {
     e.preventDefault();
+    console.log(formData.get("url"));
     fetch(`http://localhost:8000/addBlog`, {
       method: "POST",
       headers: {
-        "Content-Type": "application/json",
+        // "Content-Type": "application/json",
         Authorization: "Bearer " + token
       },
-      body: JSON.stringify(newBlog),
+      body: formData
     })
       .then((response) => response.json())
       .then((data) => console.log(data))
@@ -51,6 +60,20 @@ function AddBlog() {
             value={title}
           />
         </div>
+
+        <div class="form-outline mb-4">
+          <label class="form-label" for="form4Example1">
+            URL
+          </label>
+          <input
+            type="file"
+            id="form4Example1"
+            class="form-control"
+            onChange={(event) => setUrl(event.target.files[0])}
+            // value={url}
+          />
+        </div>
+      
 
         <div class="form-outline mb-4">
           <label class="form-label" for="form4Example3">
