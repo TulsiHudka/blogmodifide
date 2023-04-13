@@ -4,10 +4,11 @@ import classes from "./Navbar.module.css"
 export default function Navbar() {
   const navigate = useNavigate();
   const isLogin = JSON.parse(localStorage.getItem("user"));
-
+  const token = JSON.parse(localStorage.getItem("token"))
+  console.log(isLogin);
   const LogoutHandler = () => {
     localStorage.removeItem("user");
-    localStorage.removeItem("token");
+    localStorage.removeItem(token);
     navigate("/login");
   };
 

@@ -5,7 +5,7 @@ import { useDispatch } from "react-redux";
 const ChangeRole = (user) => {
   const data = user?.data
   // console.log(user.data.data._id);
-  // console.log(data.data._);
+  console.log(data._id);
   const [role, setRole] = useState()
   const dispatch = useDispatch();
   const token = JSON.parse(localStorage.getItem("token"))
@@ -15,19 +15,21 @@ const ChangeRole = (user) => {
 
 
   useEffect(() => {
+    console.log(data);
     setRole(data?.role)
   }, [data?.role])
 
   const roleChangeHandler = () => {
 
     const newData = { ...data, role: role }
-    fetch(`http://localhost:8000/users/${data.data._id}`, {
+    console.log(newData);
+    fetch(`http://localhost:8000/users/${data._id}`, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
         Authorization: "Bearer " + token
       },
-      body: JSON.stringify(newData),
+      body: JSON.stringify(newData)
     })
       .then((response) => response.json())
       .then((data) => {
@@ -36,7 +38,7 @@ const ChangeRole = (user) => {
       .catch((error) => console.error(error));
   }
 
-  console.log(data.id);
+  // console.log(data.id);
 
   return (
     <>

@@ -9,16 +9,16 @@ import "ag-grid-community/styles/ag-theme-alpine.css";
 
 function Blogs() {
   const [rowData, setRowData] = useState([]);
-  // const [tokenValue, setTokenValue] = useState("");
+  const [tokenValue, setTokenValue] = useState("");
 
   const nevigate = useNavigate();
   const isLogin = JSON.parse(localStorage.getItem("user"))
   const token = JSON.parse(localStorage.getItem("token"))
-  // useEffect(() => {
-  //   if (isLogin) {
-  //     setTokenValue(token);
-  //   }
-  // }, [])
+  useEffect(() => {
+    if (isLogin) {
+      setTokenValue(token);
+    }
+  }, [])
 
   useEffect(() => {
     fetch("http://localhost:8000/blogs")

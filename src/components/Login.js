@@ -19,15 +19,15 @@ const Login = () => {
       method: "POST",
       headers: { "content-type": "application/json" },
       body: JSON.stringify({
-        email:user.email,
-        password:user.password
+        email:user?.email,
+        password:user?.password
       }),
     }).then((data) => {
-      return data.json();
+      return data?.json();
     }).then((response) => {
       console.log(response);
-      localStorage.setItem("user", JSON.stringify(response.user));
-      localStorage.setItem("token", JSON.stringify(response.token));
+      localStorage.setItem("user", JSON.stringify(response?.user));
+      localStorage.setItem("token", JSON.stringify(response?.token));
       navigate("/");
     })
   }

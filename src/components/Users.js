@@ -13,6 +13,7 @@ function Users() {
   const dispatch = useDispatch();
   const { users } = useSelector((state) => state?.users);
   const roleHandler = (data) => {
+    console.log(data);
     setData(data)
   }
 
@@ -36,11 +37,13 @@ function Users() {
               className={`btn ${styles.edit_delete_button}`}
               data-bs-toggle="modal"
               data-bs-target="#exampleModal"
-              onClick={() => roleHandler(e.data)}
+              onClick={() => roleHandler(e?.data)}
+
             >
               Change Role
             </button>
           </div>
+
         );
       },
     },
