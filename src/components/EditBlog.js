@@ -2,6 +2,7 @@ import React from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
 import styles from "./EditBlog.module.css";
+import axios from "axios";
 
 
 function EditBlog() {
@@ -19,13 +20,16 @@ function EditBlog() {
   const [category, setCategory] = useState("");
 
   useEffect(() => {
-    fetch(`http://localhost:8000/blogs/${id}`, {
-      headers: {
-        Authorization: "Bearer " + token
-      }
-    })
-      .then((response) => response.json())
-      .then((data) => setBlog(data));
+    const editBlog = async () => {
+    const response = await axios.get(`http://localhost:8000/blogs/${id}`, {
+        headers: {
+          Authorization: "Bearer " + token
+        }
+      })
+      setBlog(response.data);      
+    }
+    editBlog();
+      // .then((response) => response.json())
     setTitle(blog.title);
     // setUrl(blog.url);
     setDescription(blog.description);
@@ -52,21 +56,24 @@ function EditBlog() {
 
 
   // console.log(mainBlog);
-  function handleSubmit(e) {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     console.log(formData.get("url"));
-    fetch(`http://localhost:8000/edit/${id}`, {
-      method: "PUT",
-      headers: {
-        // "Content-Type": "application/json",
-        Authorization: "Bearer " + token
-      },
-      body: formData
-    })
-      .then((response) => response.json())
-      .then((data) => console.log(data))
-      .catch((error) => console.error(error));
-    navigate("/");
+    try {
+      await axios.put(`http://localhost:8000/edit/${id}`, formData, {
+        headers: {
+          Authorization: "Bearer " + token
+        }
+      })
+        // .then((response) => response.json())
+        // .then((data) => console.log(data))
+        // .catch((error) => console.error(error));
+      navigate("/");
+      
+    }
+    catch (err) {
+      console.log(err);
+    }
   }
 
   return (

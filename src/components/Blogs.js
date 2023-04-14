@@ -6,6 +6,7 @@ import styles from "./EditBlog.module.css";
 import styled from "styled-components";
 import "ag-grid-community/styles/ag-grid.css";
 import "ag-grid-community/styles/ag-theme-alpine.css";
+import axios from "axios";
 
 function Blogs() {
   const [rowData, setRowData] = useState([]);
@@ -21,26 +22,28 @@ function Blogs() {
   }, [])
 
   useEffect(() => {
-    fetch("http://localhost:8000/blogs")
-      .then((response) => response.json())
-      .then((data) => setRowData(data))
-      .catch((error) => console.error(error));
+    const blogs = async () => {
+      const response = await axios.get("http://localhost:8000/blogs")
+      setRowData(response.data)
+      // .then((response) => response.json())
+      // .catch((error) => console.error(error));
+    }
+    blogs();
   }, []);
 
 
   const deleteHandler = (id) => {
     console.log(`Button clicked for row with ID ${id}`);
-    fetch(`http://localhost:8000/blogs/${id}`, {
-      method: "DELETE",
+    axios.delete(`http://localhost:8000/blogs/${id}`, {
       headers: {
         Authorization: "Bearer " + token
       }
     })
       .then((response) => response.json())
-      .then(() => {
-        fetch(`http://localhost:8000/blogs`)
-          .then((response) => response.json())
-          .then((data) => setRowData(data));
+      .then(async() => {
+       const response = await axios.get(`http://localhost:8000/blogs`)
+          // .then((response) => response.json())
+          setRowData(response.data);
         nevigate("/")
       });
   };

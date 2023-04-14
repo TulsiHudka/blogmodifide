@@ -2,6 +2,7 @@ import React from "react";
 import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import classes from './BlogPost.module.css'
+import axios from "axios";
 
 function BlogPost() {
   const params = useParams();
@@ -11,14 +12,17 @@ function BlogPost() {
   const token = JSON.parse(localStorage.getItem("token"))
 
   useEffect(() => {
-    fetch(`http://localhost:8000/blogs/${params.blogId}`, {
-      headers: {
-        Authorization: "Bearer " + token
-      },
-    })
-      .then((response) => response.json())
-      .then((blog) => setBlogDetail(blog))
-      .catch((error) => console.error(error));
+    const BlogPost = async () => {
+      const response = await axios.get(`http://localhost:8000/blogs/${params.blogId}`, {
+        headers: {
+          Authorization: "Bearer " + token
+        },
+      })
+      setBlogDetail(response.data)
+    }
+    BlogPost()
+      // .then((response) => response.json())
+      // .catch((error) => console.error(error));
     // console.log(blogDetail);
   }, []);
   const imageUrl = `http://localhost:8000/uploads/${blogDetail.url}`

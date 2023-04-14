@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import styles from "./EditBlog.module.css";
+import axios from "axios";
 
 
 function AddBlog() {
@@ -28,21 +29,28 @@ function AddBlog() {
   formData.append("author", author)
   formData.append("category", category)
   formData.append("admin", username)
-  function handleSubmit(e) {
+
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
     console.log(formData.get("url"));
-    fetch(`http://localhost:8000/addBlog`, {
-      method: "POST",
-      headers: {
-        // "Content-Type": "application/json",
-        Authorization: "Bearer " + token
-      },
-      body: formData
-    })
-      .then((response) => response.json())
-      .then((data) => console.log(data))
-      .catch((error) => console.error(error));
-    navigate("/");
+    try {
+      await axios.post(`http://localhost:8000/addBlog`, formData, {
+        headers: {
+          // "Content-Type": "application/json",
+          Authorization: "Bearer " + token
+        },
+      })
+      // .then((response) => response.json())
+      // .then((data) => console.log(data))
+      // .catch((error) => console.error(error));
+      navigate("/");
+
+    }
+
+    catch (err) {
+      console.log(err);
+    }
   }
 
   return (
@@ -70,11 +78,11 @@ function AddBlog() {
             id="form4Example1"
             className="form-control"
             onChange={(event) => setUrl(event.target.files[0])}
-            name = "url"
-            // value={url}
+            name="url"
+          // value={url}
           />
         </div>
-      
+
 
         <div className="form-outline mb-4">
           <label className="form-label" for="form4Example3">
