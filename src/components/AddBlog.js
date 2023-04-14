@@ -48,39 +48,40 @@ function AddBlog() {
   return (
     <div className={styles.container}>
       <form onSubmit={handleSubmit}>
-        <div class="form-outline mb-4">
-          <label class="form-label" for="form4Example1">
+        <div className="form-outline mb-4">
+          <label className="form-label" for="form4Example1">
             Title
           </label>
           <input
             type="text"
             id="form4Example1"
-            class="form-control"
+            className="form-control"
             onChange={(event) => setTitle(event.target.value)}
             value={title}
           />
         </div>
 
-        <div class="form-outline mb-4">
-          <label class="form-label" for="form4Example1">
+        <div className="form-outline mb-4">
+          <label className="form-label" for="form4Example1">
             URL
           </label>
           <input
             type="file"
             id="form4Example1"
-            class="form-control"
+            className="form-control"
             onChange={(event) => setUrl(event.target.files[0])}
+            name = "url"
             // value={url}
           />
         </div>
       
 
-        <div class="form-outline mb-4">
-          <label class="form-label" for="form4Example3">
+        <div className="form-outline mb-4">
+          <label className="form-label" for="form4Example3">
             Decriprion
           </label>
           <textarea
-            class="form-control"
+            className="form-control"
             id="form4Example3"
             rows="4"
             onChange={(event) => setDescription(event.target.value)}
@@ -88,33 +89,33 @@ function AddBlog() {
           ></textarea>
         </div>
 
-        <div class="form-outline mb-4">
-          <label class="form-label" for="form4Example2">
+        <div className="form-outline mb-4">
+          <label className="form-label" for="form4Example2">
             Author
           </label>
           <input
             type="text"
             id="form4Example2"
-            class="form-control"
+            className="form-control"
             onChange={(event) => setAuthor(event.target.value)}
             value={author}
           />
         </div>
 
-        <div class="form-outline mb-4">
-          <label class="form-label" for="form4Example2">
+        <div className="form-outline mb-4">
+          <label className="form-label" for="form4Example2">
             category
           </label>
           <input
             type="text"
             id="form4Example2"
-            class="form-control"
+            className="form-control"
             onChange={(event) => setCategory(event.target.value)}
             value={category}
           />
         </div>
 
-        <button type="submit" class="btn btn-primary btn-block mb-4">
+        <button type="submit" className="btn btn-primary btn-block mb-4">
           AddBlog
         </button>
       </form>

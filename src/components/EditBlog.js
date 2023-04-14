@@ -13,6 +13,7 @@ function EditBlog() {
   const id = params.id;
   const [blog, setBlog] = useState("");
   const [title, setTitle] = useState("");
+  const [url, setUrl] = useState("");
   const [description, setDescription] = useState("");
   const [author, setAuthor] = useState("");
   const [category, setCategory] = useState("");
@@ -26,28 +27,41 @@ function EditBlog() {
       .then((response) => response.json())
       .then((data) => setBlog(data));
     setTitle(blog.title);
+    // setUrl(blog.url);
     setDescription(blog.description);
     setAuthor(blog.author);
     setCategory(blog.category);
   }, [id, blog.title, blog.description, blog.category, blog.author, token]);
-  console.log(blog);
-  const mainBlog = {
-    title,
-    description,
-    author,
-    category,
-    admin: username
-  };
-  console.log(mainBlog);
+  // console.log(blog);
+  // const mainBlog = {
+  //   title,
+  //   description,
+  //   author,
+  //   category,
+  //   admin: username
+  // };
+
+  // console.log(newBlog);
+  const formData = new FormData();
+  formData.append("title", title)
+  formData.append("url", url)
+  formData.append("description", description)
+  formData.append("author", author)
+  formData.append("category", category)
+  formData.append("admin", username)
+
+
+  // console.log(mainBlog);
   function handleSubmit(e) {
     e.preventDefault();
+    console.log(formData.get("url"));
     fetch(`http://localhost:8000/edit/${id}`, {
       method: "PUT",
       headers: {
-        "Content-Type": "application/json",
+        // "Content-Type": "application/json",
         Authorization: "Bearer " + token
       },
-      body: JSON.stringify(mainBlog)
+      body: formData
     })
       .then((response) => response.json())
       .then((data) => console.log(data))
@@ -58,35 +72,49 @@ function EditBlog() {
   return (
     <div className={styles.container}>
       <form onSubmit={handleSubmit}>
-        <div class="form-outline mb-4">
-          <label class="form-label" for="form4Example1">
+        <div className="form-outline mb-4">
+          <label className="form-label" for="form4Example1">
             Title
           </label>
-          <input type="text" id="form4Example1" class="form-control" onChange={(event) => setTitle(event.target.value)} value={title} />
+          <input type="text" id="form4Example1" className="form-control" onChange={(event) => setTitle(event.target.value)} value={title} />
         </div>
 
-        <div class="form-outline mb-4">
-          <label class="form-label" for="form4Example3">
+        <div className="form-outline mb-4">
+          <label className="form-label" for="form4Example1">
+            URL
+          </label>
+          <input
+            type="file"
+            id="form4Example1"
+            className="form-control"
+            onChange={(event) => setUrl(event.target.files[0])}
+          // value={url}
+          name = "url"
+          />
+        </div>
+
+        <div className="form-outline mb-4">
+          <label className="form-label" for="form4Example3">
             Decriprion
           </label>
-          <textarea class="form-control" id="form4Example3" rows="4" onChange={(event) => setDescription(event.target.value)} value={description}></textarea>
+          <textarea className="form-control" id="form4Example3" rows="4" onChange={(event) => setDescription(event.target.value)} value={description}></textarea>
         </div>
 
-        <div class="form-outline mb-4">
-          <label class="form-label" for="form4Example2">
+        <div className="form-outline mb-4">
+          <label className="form-label" for="form4Example2">
             Author
           </label>
-          <input type="text" id="form4Example2" class="form-control" onChange={(event) => setAuthor(event.target.value)} value={author} />
+          <input type="text" id="form4Example2" className="form-control" onChange={(event) => setAuthor(event.target.value)} value={author} />
         </div>
 
-        <div class="form-outline mb-4">
-          <label class="form-label" for="form4Example2">
+        <div className="form-outline mb-4">
+          <label className="form-label" for="form4Example2">
             category
           </label>
-          <input type="text" id="form4Example2" class="form-control" onChange={(event) => setCategory(event.target.value)} value={category} />
+          <input type="text" id="form4Example2" className="form-control" onChange={(event) => setCategory(event.target.value)} value={category} />
         </div>
 
-        <button type="submit" class="btn btn-primary btn-block mb-4">
+        <button type="submit" className="btn btn-primary btn-block mb-4">
           Update
         </button>
       </form>
