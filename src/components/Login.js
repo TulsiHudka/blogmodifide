@@ -66,13 +66,20 @@ const Login = () => {
               </div>
             </div>
             <div className="card-footer">
+              <div style={{margin:"10px 0 10px 0"}}>
               <button type="submit" className="btn btn-primary me-2">
                 Login
               </button>
               <Link className="btn btn-success" to={"/register"}>
                 New User
               </Link>
+              </div>
+              <div>
+              <span>Forget Password?</span>
+              <Link to={"/forgatePassword"} style={{marginLeft:"5px"}}>Click Here</Link>
             </div>
+            </div>
+            
           </div>
         </form>
       </div>
