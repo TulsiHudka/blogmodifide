@@ -3,46 +3,64 @@ import { AgGridReact } from "ag-grid-react";
 import { Link, useNavigate } from "react-router-dom";
 import classes from "./BlogPost.module.css";
 import styled from "styled-components";
-import styles from "./EditBlog.module.css"
+import styles from "./EditBlog.module.css";
 import "ag-grid-community/styles/ag-grid.css";
 import "ag-grid-community/styles/ag-theme-alpine.css";
+import axios from "axios";
 
 function MyBlog() {
   const [rowData, setRowData] = useState([]);
+  // const [myBlogs, setMyBlogs] = useState([]);
   const nevigate = useNavigate();
-  const token = JSON.parse(localStorage.getItem("token"))
-  const isLogin = JSON.parse(localStorage.getItem("user"))
-  const username = isLogin.email.substring(0, isLogin.email.indexOf("@"))
+  const token = JSON.parse(localStorage.getItem("token"));
+  const isLogin = JSON.parse(localStorage.getItem("user"));
+  const username = isLogin.email.substring(0, isLogin.email.indexOf("@"));
 
   useEffect(() => {
-    fetch("http://localhost:8000/blogs")
-      .then((response) => response.json())
-      .then((data) => {
-        const adminBlog = data.filter((res) => {
-          if (res.admin === username) {
-            console.log(res);
-            return res;
-          }
-        })
-        setRowData(adminBlog)
-      })
-      .catch((error) => console.error(error));
+    const myBlogs = async () => {
+      const response = await axios.get("http://localhost:8000/blogs");
+      console.log(response);
+      const adminBlog = await response.data.filter((res) => {
+        if (res.admin === username) {
+          console.log(res);
+          return res;
+        }
+      });
+      setRowData(adminBlog);
+    };
+    myBlogs()
   }, []);
+
+  // const deleteHandler = (id) => {
+  //   console.log(`Button clicked for row with ID ${id}`);
+  //   fetch(`http://localhost:8000/blogs/${id}`, {
+  //     method: "DELETE",
+  //     headers: {
+  //       Authorization: "Bearer " + token,
+  //     }
+  //   })
+  //     .then((response) => response.json())
+  //     .then(() => {
+  //       fetch(`http://localhost:8000/blogs`)
+  //         .then((response) => response.json())
+  //         .then((data) => setRowData(data));
+  //       nevigate("/");
+  //     });
+  // };
 
   const deleteHandler = (id) => {
     console.log(`Button clicked for row with ID ${id}`);
-    fetch(`http://localhost:8000/blogs/${id}`, {
-      method: "DELETE",
+    axios.delete(`http://localhost:8000/blogs/${id}`, {
       headers: {
         Authorization: "Bearer " + token
       }
     })
       .then((response) => response.json())
-      .then(() => {
-        fetch(`http://localhost:8000/blogs`)
-          .then((response) => response.json())
-          .then((data) => setRowData(data));
-          nevigate("/")
+      .then(async () => {
+        const response = await axios.get(`http://localhost:8000/blogs`)
+        // .then((response) => response.json())
+        setRowData(response.data);
+        nevigate("/")
       });
   };
 
@@ -71,13 +89,18 @@ function MyBlog() {
       field: "actions",
       cellRendererFramework: ({ data }) => (
         <div className={styles.buttonContainer}>
-          <button className={`btn ${styles.edit_delete_button}`}
+          <button
+            className={`btn ${styles.edit_delete_button}`}
             onClick={() => editHandler(data._id)}
           >
             Edit{" "}
           </button>
-          <button className={`btn ${styles.edit_delete_button}`}
-            onClick={() => deleteHandler(data._id)}>Delete</button>
+          <button
+            className={`btn ${styles.edit_delete_button}`}
+            onClick={() => deleteHandler(data._id)}
+          >
+            Delete
+          </button>
         </div>
       ),
     },
@@ -86,7 +109,7 @@ function MyBlog() {
   const defaultColDef = {
     sortable: true,
     filter: true,
-    floatingFilter: true
+    floatingFilter: true,
   };
 
   return (
@@ -113,13 +136,13 @@ function MyBlog() {
 }
 
 const Wrapper = styled.section`
-.ag-theme-alpine{
-  --ag-header-foreground-color: #D1E8E2;
-  --ag-header-background-color: #116466;
-  --ag-odd-row-background-color: rgb(181 215 217);
-  --ag-foreground-color: #2C3531;
-    --ag-background-color: #f0f9f7  
-}
-`
+  .ag-theme-alpine {
+    --ag-header-foreground-color: #d1e8e2;
+    --ag-header-background-color: #116466;
+    --ag-odd-row-background-color: rgb(181 215 217);
+    --ag-foreground-color: #2c3531;
+    --ag-background-color: #f0f9f7;
+  }
+`;
 
 export default MyBlog;

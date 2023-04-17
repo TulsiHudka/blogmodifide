@@ -21,15 +21,15 @@ function EditBlog() {
 
   useEffect(() => {
     const editBlog = async () => {
-    const response = await axios.get(`http://localhost:8000/blogs/${id}`, {
+      const response = await axios.get(`http://localhost:8000/blogs/${id}`, {
         headers: {
           Authorization: "Bearer " + token
         }
       })
-      setBlog(response.data);      
+      setBlog(response.data);
     }
     editBlog();
-      // .then((response) => response.json())
+    // .then((response) => response.json())
     setTitle(blog.title);
     // setUrl(blog.url);
     setDescription(blog.description);
@@ -65,11 +65,11 @@ function EditBlog() {
           Authorization: "Bearer " + token
         }
       })
-        // .then((response) => response.json())
-        // .then((data) => console.log(data))
-        // .catch((error) => console.error(error));
+      // .then((response) => response.json())
+      // .then((data) => console.log(data))
+      // .catch((error) => console.error(error));
       navigate("/");
-      
+
     }
     catch (err) {
       console.log(err);
@@ -95,8 +95,8 @@ function EditBlog() {
             id="form4Example1"
             className="form-control"
             onChange={(event) => setUrl(event.target.files[0])}
-          // value={url}
-          name = "url"
+            // value={url}
+            name="url"
           />
         </div>
 

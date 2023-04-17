@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { getUsers } from "../Store/user-slice";
 import { useDispatch } from "react-redux";
+import axios from 'axios';
 
 const ChangeRole = (user) => {
   const data = user?.data
@@ -19,19 +20,21 @@ const ChangeRole = (user) => {
     setRole(data?.role)
   }, [data?.role])
 
-  const roleChangeHandler = () => {
+  const roleChangeHandler = async () => {
 
     const newData = { ...data, role: role }
     console.log(newData);
-    fetch(`http://localhost:8000/users/${data._id}`, {
-      method: "PUT",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: "Bearer " + token
-      },
-      body: JSON.stringify(newData)
-    })
-      .then((response) => response.json())
+    await axios.put(`http://localhost:8000/users/${data._id}`,
+      newData
+      , {
+
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: "Bearer " + token
+        },
+        // body: JSON.stringify(newData)
+      })
+      // .then((response) => response.json())
       .then((data) => {
         dispatch(getUsers());
       })
