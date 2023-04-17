@@ -12,24 +12,26 @@ const Login = () => {
     password,
   };
 
-  function ProceedLogin(e) {
+  const ProceedLogin = async (e) => {
     e.preventDefault();
 
-    fetch("http://localhost:8000/login", {
-      method: "POST",
+    const { data } = await axios.post("http://localhost:8000/login", {
+      email: user?.email,
+      password: user?.password
+    }, {
       headers: { "content-type": "application/json" },
-      body: JSON.stringify({
-        email:user?.email,
-        password:user?.password
-      }),
-    }).then((data) => {
-      return data?.json();
-    }).then((response) => {
-      console.log(response);
-      localStorage.setItem("user", JSON.stringify(response?.user));
-      localStorage.setItem("token", JSON.stringify(response?.token));
-      navigate("/");
+
     })
+    console.log(data);
+    // .then((data) => {
+    // return data?.json();
+
+    // then((response) => {
+    // console.log(response);
+    localStorage.setItem("user", JSON.stringify(data?.user));
+    localStorage.setItem("token", JSON.stringify(data?.token));
+    navigate("/");
+    // })
   }
 
   return (

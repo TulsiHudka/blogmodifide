@@ -1,3 +1,4 @@
+import axios from "axios";
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 
@@ -49,18 +50,19 @@ const Register = () => {
     };
     // console.log(regobj);
     if (IsValidate()) {
-    fetch("http://localhost:8000/register", {
-      method: "POST",
-      headers: { "content-type": "application/json" },
-      body: JSON.stringify(regobj),
-    })
-      .then((res) => {
-        alert("Registered successfully");
-        navigate("/");
-      })
-      .catch((err) => {
-        alert("Something went wrong!!");
-      });
+      const register = async () => {
+        await axios.post("http://localhost:8000/register", regobj, {
+          headers: { "content-type": "application/json" }
+        })
+          .then((res) => {
+            alert("Registered successfully");
+            navigate("/");
+          })
+          .catch((err) => {
+            alert("Something went wrong!!");
+          });
+      }
+      register();
     }
   };
   return (
