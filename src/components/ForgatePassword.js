@@ -10,7 +10,7 @@ function ForgatePassword() {
     const submitHandler = async(e) => {
         e.preventDefault();
         // console.log(email);
-        await fetch("http://localhost:8000/sendpasswordlink", {
+         await fetch("http://localhost:8000/sendpasswordlink", {
             method: 'POST',
             headers: {
                 "content-type": "application/json"

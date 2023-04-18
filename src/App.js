@@ -12,6 +12,7 @@ import { Provider } from "react-redux";
 import { store } from "./Store/Index";
 import MyBlog from "./components/MyBlog";
 import ForgatePassword from "./components/ForgatePassword";
+import ChangePassword from "./components/ChangePassword";
 
 function App() {
   const [checkRole, checkRoledupdate] = useState(false);
@@ -30,6 +31,7 @@ function App() {
             <Route path="/edit/:id" element={<EditBlog />}></Route>
             <Route path="/addBlog" element={<AddBlog />}></Route>
             <Route path="/myBlog" element={<MyBlog />}></Route>
+            <Route path="/newpassword/:id/:token" element={<ChangePassword />}></Route>
             <Route path="/forgatePassword" element={<ForgatePassword />}></Route>
           </Routes>
         </BrowserRouter>
