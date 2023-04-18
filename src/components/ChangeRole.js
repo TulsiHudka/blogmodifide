@@ -5,15 +5,10 @@ import axios from 'axios';
 
 const ChangeRole = (user) => {
   const data = user?.data
-  // console.log(user.data.data._id);
   console.log(data._id);
   const [role, setRole] = useState()
   const dispatch = useDispatch();
   const token = JSON.parse(localStorage.getItem("token"))
-  // const isLogin = JSON.parse(localStorage.getItem("user"))
-  // console.log(isLogin);
-  // let id = isLogin._id
-
 
   useEffect(() => {
     console.log(data);
@@ -32,16 +27,12 @@ const ChangeRole = (user) => {
           "Content-Type": "application/json",
           Authorization: "Bearer " + token
         },
-        // body: JSON.stringify(newData)
       })
-      // .then((response) => response.json())
       .then((data) => {
         dispatch(getUsers());
       })
       .catch((error) => console.error(error));
   }
-
-  // console.log(data.id);
 
   return (
     <>

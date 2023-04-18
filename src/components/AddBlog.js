@@ -14,14 +14,6 @@ function AddBlog() {
   const token = JSON.parse(localStorage.getItem("token"))
   const isLogin = JSON.parse(localStorage.getItem("user"))
   const username = isLogin.email.substring(0, isLogin.email.indexOf("@"))
-  // const newBlog = {
-  //   title,
-  //   description,
-  //   author,
-  //   category,
-  //   admin: username
-  // };
-  // console.log(newBlog);
   const formData = new FormData();
   formData.append("title", title)
   formData.append("url", url)
@@ -30,24 +22,17 @@ function AddBlog() {
   formData.append("category", category)
   formData.append("admin", username)
 
-
   const handleSubmit = async (e) => {
     e.preventDefault();
     console.log(formData.get("url"));
     try {
       await axios.post(`http://localhost:8000/addBlog`, formData, {
         headers: {
-          // "Content-Type": "application/json",
           Authorization: "Bearer " + token
         },
       })
-      // .then((response) => response.json())
-      // .then((data) => console.log(data))
-      // .catch((error) => console.error(error));
       navigate("/");
-
     }
-
     catch (err) {
       console.log(err);
     }

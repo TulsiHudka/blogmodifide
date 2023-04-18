@@ -48,7 +48,6 @@ const Register = () => {
       role: "user",
       phoneNumber,
     };
-    // console.log(regobj);
     if (IsValidate()) {
       const register = async () => {
         await axios.post("http://localhost:8000/register", regobj, {

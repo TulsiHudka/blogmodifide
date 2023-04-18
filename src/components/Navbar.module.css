@@ -2,27 +2,26 @@
   background-color: #116466;
 }
 
-.navButton{
-    background-color: #d1e8e2 !important;
-    color: #116466 !important;
-    font-size: 15px !important;
-    font-weight: 500 !important;
-    margin-top: 2.5px !important;
-    
+.navButton {
+  background-color: #d1e8e2 !important;
+  color: #116466 !important;
+  font-size: 15px !important;
+  font-weight: 500 !important;
+  margin-top: 2.5px !important;
 }
 
-.navButton:hover{
-    border: 1px solid #d1e8e2 !important;
-    background-color: #116466 !important;
-    color: #d1e8e2 !important;
+.navButton:hover {
+  border: 1px solid #d1e8e2 !important;
+  background-color: #116466 !important;
+  color: #d1e8e2 !important;
 }
 
-.offcanvas{
-    background-color: #f0f9f7 !important;
-    color: #116466 !important;
+.offcanvas {
+  background-color: #f0f9f7 !important;
+  color: #116466 !important;
 }
 
-.offcanvasItem{
-    /* background-color: #f0f9f7 !important; */
-    color: #116466 !important;
+.offcanvasItem {
+  /* background-color: #f0f9f7 !important; */
+  color: #116466 !important;
 }

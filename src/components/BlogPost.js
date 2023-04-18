@@ -21,15 +21,13 @@ function BlogPost() {
       setBlogDetail(response.data)
     }
     BlogPost()
-      // .then((response) => response.json())
-      // .catch((error) => console.error(error));
-    // console.log(blogDetail);
   }, []);
   const imageUrl = `http://localhost:8000/uploads/${blogDetail.url}`
+
   return (
     <div className={classes.container}>
       <h2 className={classes.title}>{blogDetail.title}</h2>
-      <img src={imageUrl} alt="dummy-img" style={{height:"300px", width:"400px"}} />
+      <img src={imageUrl} alt="dummy-img" style={{ height: "300px", width: "400px" }} />
       <h5 className={classes.author}>{blogDetail.author}</h5>
       <h5 className={classes.category}>{blogDetail.category}</h5>
       <p className={classes.description}>{blogDetail.description}</p>

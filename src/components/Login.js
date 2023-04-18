@@ -6,7 +6,6 @@ const Login = () => {
   const [email, emailupdate] = useState("");
   const [password, passwordupdate] = useState("");
   const navigate = useNavigate();
-
   const user = {
     email,
     password,
@@ -14,24 +13,16 @@ const Login = () => {
 
   const ProceedLogin = async (e) => {
     e.preventDefault();
-
     const { data } = await axios.post("http://localhost:8000/login", {
       email: user?.email,
       password: user?.password
     }, {
       headers: { "content-type": "application/json" },
-
     })
     console.log(data);
-    // .then((data) => {
-    // return data?.json();
-
-    // then((response) => {
-    // console.log(response);
     localStorage.setItem("user", JSON.stringify(data?.user));
     localStorage.setItem("token", JSON.stringify(data?.token));
     navigate("/");
-    // })
   }
 
   return (
@@ -66,20 +57,19 @@ const Login = () => {
               </div>
             </div>
             <div className="card-footer">
-              <div style={{margin:"10px 0 10px 0"}}>
-              <button type="submit" className="btn btn-primary me-2">
-                Login
-              </button>
-              <Link className="btn btn-success" to={"/register"}>
-                New User
-              </Link>
+              <div style={{ margin: "10px 0 10px 0" }}>
+                <button type="submit" className="btn btn-primary me-2">
+                  Login
+                </button>
+                <Link className="btn btn-success" to={"/register"}>
+                  New User
+                </Link>
               </div>
               <div>
-              <span>Forget Password?</span>
-              <Link to={"/forgatePassword"} style={{marginLeft:"5px"}}>Click Here</Link>
+                <span>Forget Password?</span>
+                <Link to={"/forgatePassword"} style={{ marginLeft: "5px" }}>Click Here</Link>
+              </div>
             </div>
-            </div>
-            
           </div>
         </form>
       </div>

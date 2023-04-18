@@ -25,8 +25,6 @@ function Blogs() {
     const blogs = async () => {
       const response = await axios.get("http://localhost:8000/blogs")
       setRowData(response.data)
-      // .then((response) => response.json())
-      // .catch((error) => console.error(error));
     }
     blogs();
   }, []);
@@ -40,10 +38,9 @@ function Blogs() {
       }
     })
       .then((response) => response.json())
-      .then(async() => {
-       const response = await axios.get(`http://localhost:8000/blogs`)
-          // .then((response) => response.json())
-          setRowData(response.data);
+      .then(async () => {
+        const response = await axios.get(`http://localhost:8000/blogs`)
+        setRowData(response.data);
         nevigate("/")
       });
   };

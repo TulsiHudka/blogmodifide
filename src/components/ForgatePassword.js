@@ -1,22 +1,19 @@
 import React from 'react'
-// import { Link } from "react-router-dom";
 import { useState } from 'react'
-// import { Await } from 'react-router-dom';
 
 function ForgatePassword() {
 
     const [email, emailupdate] = useState("");
 
-    const submitHandler = async(e) => {
+    const submitHandler = async (e) => {
         e.preventDefault();
-        // console.log(email);
-         await fetch("http://localhost:8000/sendpasswordlink", {
+        await fetch("http://localhost:8000/sendpasswordlink", {
             method: 'POST',
             headers: {
                 "content-type": "application/json"
             },
-            body: JSON.stringify({email})
-        } )
+            body: JSON.stringify({ email })
+        })
     }
 
     return (

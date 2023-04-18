@@ -10,7 +10,6 @@ import axios from "axios";
 
 function MyBlog() {
   const [rowData, setRowData] = useState([]);
-  // const [myBlogs, setMyBlogs] = useState([]);
   const nevigate = useNavigate();
   const token = JSON.parse(localStorage.getItem("token"));
   const isLogin = JSON.parse(localStorage.getItem("user"));
@@ -31,23 +30,6 @@ function MyBlog() {
     myBlogs()
   }, []);
 
-  // const deleteHandler = (id) => {
-  //   console.log(`Button clicked for row with ID ${id}`);
-  //   fetch(`http://localhost:8000/blogs/${id}`, {
-  //     method: "DELETE",
-  //     headers: {
-  //       Authorization: "Bearer " + token,
-  //     }
-  //   })
-  //     .then((response) => response.json())
-  //     .then(() => {
-  //       fetch(`http://localhost:8000/blogs`)
-  //         .then((response) => response.json())
-  //         .then((data) => setRowData(data));
-  //       nevigate("/");
-  //     });
-  // };
-
   const deleteHandler = (id) => {
     console.log(`Button clicked for row with ID ${id}`);
     axios.delete(`http://localhost:8000/blogs/${id}`, {
@@ -58,7 +40,6 @@ function MyBlog() {
       .then((response) => response.json())
       .then(async () => {
         const response = await axios.get(`http://localhost:8000/blogs`)
-        // .then((response) => response.json())
         setRowData(response.data);
         nevigate("/")
       });

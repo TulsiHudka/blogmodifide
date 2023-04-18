@@ -29,23 +29,12 @@ function EditBlog() {
       setBlog(response.data);
     }
     editBlog();
-    // .then((response) => response.json())
     setTitle(blog.title);
-    // setUrl(blog.url);
     setDescription(blog.description);
     setAuthor(blog.author);
     setCategory(blog.category);
   }, [id, blog.title, blog.description, blog.category, blog.author, token]);
-  // console.log(blog);
-  // const mainBlog = {
-  //   title,
-  //   description,
-  //   author,
-  //   category,
-  //   admin: username
-  // };
 
-  // console.log(newBlog);
   const formData = new FormData();
   formData.append("title", title)
   formData.append("url", url)
@@ -54,8 +43,6 @@ function EditBlog() {
   formData.append("category", category)
   formData.append("admin", username)
 
-
-  // console.log(mainBlog);
   const handleSubmit = async (e) => {
     e.preventDefault();
     console.log(formData.get("url"));
@@ -65,9 +52,6 @@ function EditBlog() {
           Authorization: "Bearer " + token
         }
       })
-      // .then((response) => response.json())
-      // .then((data) => console.log(data))
-      // .catch((error) => console.error(error));
       navigate("/");
 
     }
@@ -95,7 +79,6 @@ function EditBlog() {
             id="form4Example1"
             className="form-control"
             onChange={(event) => setUrl(event.target.files[0])}
-            // value={url}
             name="url"
           />
         </div>
