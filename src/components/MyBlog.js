@@ -55,7 +55,7 @@ function MyBlog() {
       headerName: "Title",
       field: "title",
       cellRenderer: (e) => {
-        const blogId = e.data.id;
+        const blogId = e.data._id;
         return (
           <Link to={`/${blogId}`} className={classes.blogTitle}>
             {e.value}

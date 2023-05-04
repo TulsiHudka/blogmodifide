@@ -3,21 +3,19 @@ import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import classes from './BlogPost.module.css'
 import axios from "axios";
+import api from "./api";
 
 function BlogPost() {
   const params = useParams();
   const [blogDetail, setBlogDetail] = useState("")
   const [image, setImage] = useState({})
-  console.log(params.blogId);
+  console.log(params);
   const token = JSON.parse(localStorage.getItem("token"))
 
   useEffect(() => {
     const BlogPost = async () => {
-      const response = await axios.get(`http://localhost:8000/blogs/${params.blogId}`, {
-        headers: {
-          Authorization: "Bearer " + token
-        },
-      })
+      const response = await api.get(`blogs/${params.blogId}`)
+      console.log(response.data);
       setBlogDetail(response.data)
     }
     BlogPost()

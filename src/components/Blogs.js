@@ -7,6 +7,7 @@ import styled from "styled-components";
 import "ag-grid-community/styles/ag-grid.css";
 import "ag-grid-community/styles/ag-theme-alpine.css";
 import axios from "axios";
+import api from "./api";
 
 function Blogs() {
   const [rowData, setRowData] = useState([]);
@@ -32,11 +33,8 @@ function Blogs() {
 
   const deleteHandler = (id) => {
     console.log(`Button clicked for row with ID ${id}`);
-    axios.delete(`http://localhost:8000/blogs/${id}`, {
-      headers: {
-        Authorization: "Bearer " + token
-      }
-    })
+    api.delete(`blogs/${id}`
+    )
       .then((response) => response.json())
       .then(async () => {
         const response = await axios.get(`http://localhost:8000/blogs`)

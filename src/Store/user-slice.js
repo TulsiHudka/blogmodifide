@@ -1,18 +1,14 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 import { toast } from "react-toastify";
+import api from "../components/api";
 
 export const getUsers = createAsyncThunk(
   'users/getUsers',
   async () => {
     const token = JSON.parse(localStorage.getItem("token"))
     try {
-      const response = await axios.get("http://localhost:8000/users",
-        {
-          headers: {
-            Authorization: "Bearer " + token
-          }
-        }
+      const response = await api.get("users"
       );
       return response.data;
     } catch (error) {

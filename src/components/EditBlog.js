@@ -3,6 +3,7 @@ import { useParams, useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
 import styles from "./EditBlog.module.css";
 import axios from "axios";
+import api from "./api";
 
 
 function EditBlog() {
@@ -47,11 +48,8 @@ function EditBlog() {
     e.preventDefault();
     console.log(formData.get("url"));
     try {
-      await axios.put(`http://localhost:8000/edit/${id}`, formData, {
-        headers: {
-          Authorization: "Bearer " + token
-        }
-      })
+      await api.put(`edit/${id}`, formData
+      )
       navigate("/");
 
     }

@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import styles from "./EditBlog.module.css";
 import axios from "axios";
+import api from "./api";
 
 
 function AddBlog() {
@@ -26,11 +27,7 @@ function AddBlog() {
     e.preventDefault();
     console.log(formData.get("url"));
     try {
-      await axios.post(`http://localhost:8000/addBlog`, formData, {
-        headers: {
-          Authorization: "Bearer " + token
-        },
-      })
+      await api.post(`addBlog`, formData)
       navigate("/");
     }
     catch (err) {
