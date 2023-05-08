@@ -49,5 +49,4 @@ if (isLoggedIn) {
   );
 }
 
-
 export default api; 
