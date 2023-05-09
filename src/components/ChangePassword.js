@@ -14,7 +14,7 @@ function ChangePassword() {
         console.log(password);
         if (status === 201) {
 
-            await fetch(`http://localhost:8000/changedPassword/${id}/${token}`, {
+            await fetch(`http://localhost:8000/password/changedPassword/${id}/${token}`, {
                 method: 'POST',
                 headers: {
                     "content-type": "application/json"
@@ -27,7 +27,7 @@ function ChangePassword() {
     useEffect(() => {
         const abc = async () => {
 
-            const res = await fetch(`http://localhost:8000/verifytoken/${id}/${token}`, {
+            const res = await fetch(`http://localhost:8000/password/verifytoken/${id}/${token}`, {
                 method: 'POST',
                 headers: {
                     "content-type": "application/json"

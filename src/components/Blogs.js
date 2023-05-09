@@ -24,7 +24,7 @@ function Blogs() {
 
   useEffect(() => {
     const blogs = async () => {
-      const response = await axios.get("http://localhost:8000/blogs")
+      const response = await axios.get("http://localhost:8000/blogs/blogs")
       setRowData(response.data)
     }
     blogs();
@@ -33,11 +33,11 @@ function Blogs() {
 
   const deleteHandler = (id) => {
     console.log(`Button clicked for row with ID ${id}`);
-    api.delete(`blogs/${id}`
+    api.delete(`blogs/blogs/${id}`
     )
       .then((response) => response.json())
       .then(async () => {
-        const response = await axios.get(`http://localhost:8000/blogs`)
+        const response = await axios.get(`http://localhost:8000/blogs/blogs`)
         setRowData(response.data);
         nevigate("/")
       });

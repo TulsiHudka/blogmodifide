@@ -20,7 +20,7 @@ const ChangeRole = (user) => {
 
     const newData = { ...data, role: role }
     console.log(newData);
-    await api.put(`users/${data._id}`,
+    await api.put(`users/users/${data._id}`,
       newData
       , {
 

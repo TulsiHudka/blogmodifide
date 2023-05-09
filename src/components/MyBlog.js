@@ -7,6 +7,7 @@ import styles from "./EditBlog.module.css";
 import "ag-grid-community/styles/ag-grid.css";
 import "ag-grid-community/styles/ag-theme-alpine.css";
 import axios from "axios";
+import api from "./api";
 
 function MyBlog() {
   const [rowData, setRowData] = useState([]);
@@ -17,7 +18,7 @@ function MyBlog() {
 
   useEffect(() => {
     const myBlogs = async () => {
-      const response = await axios.get("http://localhost:8000/blogs");
+      const response = await axios.get("http://localhost:8000/blogs/blogs");
       console.log(response);
       const adminBlog = await response.data.filter((res) => {
         if (res.admin === username) {
@@ -32,21 +33,18 @@ function MyBlog() {
 
   const deleteHandler = (id) => {
     console.log(`Button clicked for row with ID ${id}`);
-    axios.delete(`http://localhost:8000/blogs/${id}`, {
-      headers: {
-        Authorization: "Bearer " + token
-      }
-    })
+    api.delete(`blogs/blogs/${id}`
+    )
       .then((response) => response.json())
       .then(async () => {
-        const response = await axios.get(`http://localhost:8000/blogs`)
+        const response = await axios.get(`http://localhost:8000/blogs/blogs`)
         setRowData(response.data);
         nevigate("/")
       });
   };
 
   const editHandler = (id) => {
-    nevigate(`/edit/${id}`);
+    nevigate(`edit/${id}`);
   };
 
   const [columnDefs, setcolumnDefs] = useState([

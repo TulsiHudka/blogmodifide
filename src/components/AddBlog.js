@@ -27,7 +27,7 @@ function AddBlog() {
     e.preventDefault();
     console.log(formData.get("url"));
     try {
-      await api.post(`addBlog`, formData)
+      await api.post(`blogs/addBlog`, formData)
       navigate("/");
     }
     catch (err) {

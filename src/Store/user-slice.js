@@ -8,7 +8,7 @@ export const getUsers = createAsyncThunk(
   async () => {
     const token = JSON.parse(localStorage.getItem("token"))
     try {
-      const response = await api.get("users"
+      const response = await api.get("users/users"
       );
       return response.data;
     } catch (error) {

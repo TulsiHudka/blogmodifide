@@ -32,7 +32,7 @@ if (isLoggedIn) {
     async (error) => {
       if (error.response.status === 428) {
         const responseOf = await axios.post(
-          "http://localhost:8000/refresh-token",
+          "http://localhost:8000/users/refresh-token",
           {
             _id: loggedUserId,
           }

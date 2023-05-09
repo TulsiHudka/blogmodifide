@@ -50,7 +50,7 @@ const Register = () => {
     };
     if (IsValidate()) {
       const register = async () => {
-        await axios.post("http://localhost:8000/register", regobj, {
+        await axios.post("http://localhost:8000/users/register", regobj, {
           headers: { "content-type": "application/json" }
         })
           .then((res) => {

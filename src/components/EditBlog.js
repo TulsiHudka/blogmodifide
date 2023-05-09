@@ -22,11 +22,8 @@ function EditBlog() {
 
   useEffect(() => {
     const editBlog = async () => {
-      const response = await axios.get(`http://localhost:8000/blogs/${id}`, {
-        headers: {
-          Authorization: "Bearer " + token
-        }
-      })
+      const response = await api.get(`blogs/blogs/${id}`
+      )
       setBlog(response.data);
     }
     editBlog();
@@ -48,7 +45,7 @@ function EditBlog() {
     e.preventDefault();
     console.log(formData.get("url"));
     try {
-      await api.put(`edit/${id}`, formData
+      await api.put(`blogs/edit/${id}`, formData
       )
       navigate("/");
 

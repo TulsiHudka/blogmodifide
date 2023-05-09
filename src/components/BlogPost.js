@@ -14,7 +14,7 @@ function BlogPost() {
 
   useEffect(() => {
     const BlogPost = async () => {
-      const response = await api.get(`blogs/${params.blogId}`)
+      const response = await api.get(`blogs/blogs/${params.blogId}`)
       console.log(response.data);
       setBlogDetail(response.data)
     }

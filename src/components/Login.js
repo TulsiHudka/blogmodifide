@@ -13,7 +13,7 @@ const Login = () => {
 
   const ProceedLogin = async (e) => {
     e.preventDefault();
-    const { data } = await axios.post("http://localhost:8000/login", {
+    const { data } = await axios.post("http://localhost:8000/users/login", {
       email: user?.email,
       password: user?.password
     }, {
