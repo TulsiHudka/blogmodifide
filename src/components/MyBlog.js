@@ -18,7 +18,7 @@ function MyBlog() {
 
   useEffect(() => {
     const myBlogs = async () => {
-      const response = await axios.get("http://localhost:8000/blogs/blogs");
+      const response = await api.get("blogs/blogs");
       console.log(response);
       const adminBlog = await response.data.filter((res) => {
         if (res.admin === username) {
@@ -37,7 +37,7 @@ function MyBlog() {
     )
       .then((response) => response.json())
       .then(async () => {
-        const response = await axios.get(`http://localhost:8000/blogs/blogs`)
+        const response = await api.get(`blogs/blogs`)
         setRowData(response.data);
         nevigate("/")
       });

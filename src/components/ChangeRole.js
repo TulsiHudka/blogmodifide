@@ -23,7 +23,6 @@ const ChangeRole = (user) => {
     await api.put(`users/users/${data._id}`,
       newData
       , {
-
         headers: {
           "Content-Type": "application/json",
           // Authorization: "Bearer " + token

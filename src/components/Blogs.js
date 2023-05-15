@@ -6,13 +6,17 @@ import styles from "./EditBlog.module.css";
 import styled from "styled-components";
 import "ag-grid-community/styles/ag-grid.css";
 import "ag-grid-community/styles/ag-theme-alpine.css";
-import axios from "axios";
+// import axios from "axios";
 import api from "./api";
+// import { getUsers } from "../Store/user-slice";
+import { useSelector, useDispatch } from "react-redux";
+import { getBlogs } from "../Store/blog-slice";
 
 function Blogs() {
-  const [rowData, setRowData] = useState([]);
+  // const [rowData, setRowData] = useState([]);
+  const dispatch = useDispatch();
   const [tokenValue, setTokenValue] = useState("");
-
+  const { blogs } = useSelector((state) => state?.blogs);
   const nevigate = useNavigate();
   const isLogin = JSON.parse(localStorage.getItem("user"))
   const token = JSON.parse(localStorage.getItem("token"))
@@ -22,23 +26,27 @@ function Blogs() {
     }
   }, [])
 
-  useEffect(() => {
-    const blogs = async () => {
-      const response = await axios.get("http://localhost:8000/blogs/blogs")
-      setRowData(response.data)
-    }
-    blogs();
-  }, []);
+  useEffect(() => { 
+    dispatch(getBlogs());
+    // const blogs = async () => {
+    //   const response = await axios.get("http://localhost:8000/blogs/blogs")
+    //   setRowData(response.data)
+    // }
+    // blogs();
+  }, [dispatch]);
 
 
-  const deleteHandler = (id) => {
+  const deleteHandler = async (id) => {
     console.log(`Button clicked for row with ID ${id}`);
-    api.delete(`blogs/blogs/${id}`
+    await api.delete(`blogs/blogs/${id}`
     )
       .then((response) => response.json())
-      .then(async () => {
-        const response = await axios.get(`http://localhost:8000/blogs/blogs`)
-        setRowData(response.data);
+      .then((data) => {
+        // const response = await axios.get(`http://localhost:8000/blogs/blogs`)
+        // setRowData(response.data);
+        dispatch(getBlogs())
+        // setRowData(response.data);
+        
         nevigate("/")
       });
   };
@@ -137,7 +145,7 @@ function Blogs() {
         <AgGridReact
           columnDefs={columnDefs}
           defaultColDef={defaultColDef}
-          rowData={rowData}
+          rowData={blogs}
           animateRows={true}
           paginationAutoPageSize={true}
           pagination={true}
