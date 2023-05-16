@@ -7,7 +7,7 @@ import styled from "styled-components";
 import "ag-grid-community/styles/ag-grid.css";
 import "ag-grid-community/styles/ag-theme-alpine.css";
 // import axios from "axios";
-import api from "./api";
+import api from "../services/interceptor";
 // import { getUsers } from "../Store/user-slice";
 import { useSelector, useDispatch } from "react-redux";
 import { getBlogs } from "../Store/blog-slice";
@@ -26,7 +26,7 @@ function Blogs() {
     }
   }, [])
 
-  useEffect(() => { 
+  useEffect(() => {
     dispatch(getBlogs());
     // const blogs = async () => {
     //   const response = await axios.get("http://localhost:8000/blogs/blogs")
@@ -46,7 +46,7 @@ function Blogs() {
         // setRowData(response.data);
         dispatch(getBlogs())
         // setRowData(response.data);
-        
+
         nevigate("/")
       });
   };

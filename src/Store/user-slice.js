@@ -1,7 +1,7 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 // import axios from "axios";
 import { toast } from "react-toastify";
-import api from "../components/api";
+import api from "../services/interceptor";
 
 export const getUsers = createAsyncThunk(
   'users/getUsers',

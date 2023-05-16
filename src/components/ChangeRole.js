@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react'
 import { getUsers } from "../Store/user-slice";
 import { useDispatch } from "react-redux";
-import axios from 'axios';
-import api from './api';
+// import axios from 'axios';
+import api from '../services/interceptor';
 
 const ChangeRole = (user) => {
   const data = user?.data

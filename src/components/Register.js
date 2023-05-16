@@ -1,6 +1,8 @@
 import axios from "axios";
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import { APIS } from "../Url/appUrl";
+import { register } from "../services/userApi";
 
 const Register = () => {
   const [firstname, firstnamechange] = useState("");
@@ -49,21 +51,11 @@ const Register = () => {
       phoneNumber,
     };
     if (IsValidate()) {
-      const register = async () => {
-        await axios.post("http://localhost:8000/users/register", regobj, {
-          headers: { "content-type": "application/json" }
-        })
-          .then((res) => {
-            alert("Registered successfully");
-            navigate("/");
-          })
-          .catch((err) => {
-            alert("Something went wrong!!");
-          });
-      }
-      register();
+      register(regobj);
+      navigate("/")
     }
   };
+
   return (
     <div>
       <div className="offset-lg-3 col-lg-6">

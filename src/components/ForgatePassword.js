@@ -1,5 +1,6 @@
 import React from 'react'
 import { useState } from 'react'
+import { APIS } from '../Url/appUrl';
 
 function ForgatePassword() {
 
@@ -7,7 +8,7 @@ function ForgatePassword() {
 
     const submitHandler = async (e) => {
         e.preventDefault();
-        await fetch("http://localhost:8000/password/sendpasswordlink", {
+        await fetch(`${APIS.PASSWORD_API}/sendpasswordlink`, {
             method: 'POST',
             headers: {
                 "content-type": "application/json"

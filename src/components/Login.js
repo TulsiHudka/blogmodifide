@@ -1,29 +1,60 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
+import { APIS } from "../Url/appUrl";
+import { login } from "../services/userApi";
 
 const Login = () => {
   const [email, emailupdate] = useState("");
   const [password, passwordupdate] = useState("");
   const navigate = useNavigate();
-  const user = {
-    email,
-    password,
-  };
+
+  const validate = () => {
+    let result = true
+
+    if (email === '' && password === '') {
+      result = false;
+      alert("All fields are required")
+    }
+    else if (email === null || email === '') {
+      result = false;
+      alert("username is required")
+    }
+    else if (password === null || password === '') {
+      result = false;
+      alert("password is required")
+    }
+    return result;
+  }
 
   const ProceedLogin = async (e) => {
     e.preventDefault();
-    const { data } = await axios.post("http://localhost:8000/users/login", {
-      email: user?.email,
-      password: user?.password
-    }, {
-      headers: { "content-type": "application/json" },
-    })
-    console.log(data);
-    localStorage.setItem("user", JSON.stringify(data?.user));
-    localStorage.setItem("token", JSON.stringify(data?.token));
-    navigate("/");
+    const user = {
+      email,
+      password,
+    };
+    if (validate()) {
+      const data = await login(user)
+      if (data) {
+        localStorage.setItem("user", JSON.stringify(data?.user))
+        localStorage.setItem("token", JSON.stringify(data?.token));
+        navigate("/")
+      }
+    }
   }
+  // const ProceedLogin = async (e) => {
+  //   e.preventDefault();
+  //   const { data } = await axios.post(`${APIS.USER_API}/login`, {
+  //     email: user?.email,
+  //     password: user?.password
+  //   }, {
+  //     headers: { "content-type": "application/json" },
+  //   })
+  //   console.log(data);
+  //   localStorage.setItem("user", JSON.stringify(data?.user));
+  //   localStorage.setItem("token", JSON.stringify(data?.token));
+  //   navigate("/");
+  // }
 
   return (
     <div className="row">

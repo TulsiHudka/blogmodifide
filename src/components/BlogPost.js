@@ -2,8 +2,9 @@ import React from "react";
 import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import classes from './BlogPost.module.css'
-import axios from "axios";
-import api from "./api";
+// import axios from "axios";
+import { APP_URL } from "../Url/appUrl";
+import api from "../services/interceptor";
 
 function BlogPost() {
   const params = useParams();
@@ -20,7 +21,7 @@ function BlogPost() {
     }
     BlogPost()
   }, []);
-  const imageUrl = `http://localhost:8000/uploads/${blogDetail.url}`
+  const imageUrl = `${APP_URL}/uploads/${blogDetail.url}`
 
   return (
     <div className={classes.container}>

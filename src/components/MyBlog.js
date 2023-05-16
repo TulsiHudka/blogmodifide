@@ -7,7 +7,7 @@ import styles from "./EditBlog.module.css";
 import "ag-grid-community/styles/ag-grid.css";
 import "ag-grid-community/styles/ag-theme-alpine.css";
 import axios from "axios";
-import api from "./api";
+import api from "../services/interceptor";
 
 function MyBlog() {
   const [rowData, setRowData] = useState([]);

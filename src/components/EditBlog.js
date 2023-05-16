@@ -3,7 +3,7 @@ import { useParams, useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
 import styles from "./EditBlog.module.css";
 import axios from "axios";
-import api from "./api";
+import api from "../services/interceptor";
 
 
 function EditBlog() {

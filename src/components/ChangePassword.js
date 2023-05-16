@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react'
 import { useState } from 'react'
 import { useParams } from 'react-router-dom';
+import { APIS } from '../Url/appUrl';
 
 function ChangePassword() {
     const [password, passwordupdate] = useState("");
@@ -14,7 +15,7 @@ function ChangePassword() {
         console.log(password);
         if (status === 201) {
 
-            await fetch(`http://localhost:8000/password/changedPassword/${id}/${token}`, {
+            await fetch(`${APIS.PASSWORD_API}/changedPassword/${id}/${token}`, {
                 method: 'POST',
                 headers: {
                     "content-type": "application/json"
@@ -27,7 +28,7 @@ function ChangePassword() {
     useEffect(() => {
         const abc = async () => {
 
-            const res = await fetch(`http://localhost:8000/password/verifytoken/${id}/${token}`, {
+            const res = await fetch(`${APIS.PASSWORD_API}/verifytoken/${id}/${token}`, {
                 method: 'POST',
                 headers: {
                     "content-type": "application/json"
