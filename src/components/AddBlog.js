@@ -3,9 +3,13 @@ import { useNavigate } from "react-router-dom";
 import styles from "./EditBlog.module.css";
 import axios from "axios";
 import api from "../services/interceptor";
+import { addBlogs } from "../services/blogApi";
+import { getBlogs } from "../Store/blog-slice";
+import { useDispatch } from "react-redux";
 
 
 function AddBlog() {
+  const dispatch = useDispatch();
   const navigate = useNavigate();
   const [title, setTitle] = useState("");
   const [url, setUrl] = useState("");
@@ -25,14 +29,17 @@ function AddBlog() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log(formData.get("url"));
-    try {
-      await api.post(`blogs/addBlog`, formData)
-      navigate("/");
-    }
-    catch (err) {
-      console.log(err);
-    }
+    addBlogs(formData);
+    navigate("/")
+    dispatch(getBlogs())
+    // console.log(formData.get("url"));
+    // try {
+    //   await api.post(`blogs/addBlog`, formData)
+    //   navigate("/");
+    // }
+    // catch (err) {
+    //   console.log(err);
+    // }
   }
 
   return (

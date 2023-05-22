@@ -37,3 +37,18 @@ export const login = async (data) => {
     }
 }
 
+
+export const changeRole = async (data) => {
+    try {
+        console.log(data.id);
+        // console.log(data._id);
+        const response = await api.put(`users/users/${data.id}`, data);
+        const changeRole = await response?.data;
+        if (changeRole) {
+            alert("UserRole is changed Successfully");
+        }
+    } catch (error) {
+        console.log(error);
+        alert(error?.message);
+    }
+};

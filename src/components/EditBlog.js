@@ -4,9 +4,13 @@ import { useState, useEffect } from "react";
 import styles from "./EditBlog.module.css";
 import axios from "axios";
 import api from "../services/interceptor";
+import { editBlog } from "../services/blogApi";
+import { useDispatch } from "react-redux";
+import { getBlogs } from "../Store/blog-slice";
 
 
 function EditBlog() {
+  const dispatch = useDispatch();
   const isLogin = JSON.parse(localStorage.getItem("user"))
   const token = JSON.parse(localStorage.getItem("token"))
   const username = isLogin.email.substring(0, isLogin.email.indexOf("@"))
@@ -24,6 +28,7 @@ function EditBlog() {
     const editBlog = async () => {
       const response = await api.get(`blogs/blogs/${id}`
       )
+
       setBlog(response.data);
     }
     editBlog();
@@ -32,6 +37,9 @@ function EditBlog() {
     setAuthor(blog.author);
     setCategory(blog.category);
   }, [id, blog.title, blog.description, blog.category, blog.author, token]);
+
+
+
 
   const formData = new FormData();
   formData.append("title", title)
@@ -44,16 +52,26 @@ function EditBlog() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     console.log(formData.get("url"));
-    try {
-      await api.put(`blogs/edit/${id}`, formData
-      )
-      navigate("/");
+    const hjhggkjg = formData
+    // try {
+    //   await api.put(`blogs/edit/${id}`, formData
+    //   )
+    console.log(e);
+    // editBlog(formData)
+    editBlog({ id, formData })
+    dispatch(getBlogs)
+    navigate("/");
 
-    }
-    catch (err) {
-      console.log(err);
-    }
+
+    // }
+    // catch (err) {
+    //   console.log(err);
+    // }
   }
+
+  // useEffect(() => {
+
+  // }, [handleSubmit])
 
   return (
     <div className={styles.container}>

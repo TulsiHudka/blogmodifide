@@ -5,6 +5,7 @@ import classes from './BlogPost.module.css'
 // import axios from "axios";
 import { APP_URL } from "../Url/appUrl";
 import api from "../services/interceptor";
+import blogPost from "../services/blogApi";
 
 function BlogPost() {
   const params = useParams();
@@ -14,12 +15,12 @@ function BlogPost() {
   const token = JSON.parse(localStorage.getItem("token"))
 
   useEffect(() => {
-    const BlogPost = async () => {
-      const response = await api.get(`blogs/blogs/${params.blogId}`)
-      console.log(response.data);
-      setBlogDetail(response.data)
-    }
-    BlogPost()
+    blogPost({ id })
+    // const BlogPost = async () => {
+    //   const response = await api.get(`blogs/blogs/${params.blogId}`)
+    //   console.log(response.data);
+    //   setBlogDetail(response.data)
+    // }
   }, []);
   const imageUrl = `${APP_URL}/uploads/${blogDetail.url}`
 
