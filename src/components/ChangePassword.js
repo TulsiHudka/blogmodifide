@@ -2,6 +2,9 @@ import React, { useEffect } from 'react'
 import { useState } from 'react'
 import { useParams } from 'react-router-dom';
 import { APIS } from '../Url/appUrl';
+import { useNavigate } from 'react-router-dom';
+import { verifyToken } from '../services/passwordApi';
+import { changedPassword } from '../services/passwordApi';
 
 function ChangePassword() {
     const [password, passwordupdate] = useState("");
@@ -9,37 +12,49 @@ function ChangePassword() {
     const params = useParams();
     const id = params.id;
     const token = params.token;
+    const navigate = useNavigate();
 
     const submitHandler = async (e) => {
         e.preventDefault();
         console.log(password);
         if (status === 201) {
+            changedPassword(id, token, password)
+            alert("password changed sucessfully")
+            navigate("/login")
 
-            await fetch(`${APIS.PASSWORD_API}/changedPassword/${id}/${token}`, {
-                method: 'POST',
-                headers: {
-                    "content-type": "application/json"
-                },
-                body: JSON.stringify({ password })
-            })
+            // await fetch(`${APIS.PASSWORD_API}/changedPassword/${id}/${token}`, {
+            //     method: 'POST',
+            //     headers: {
+            //         "content-type": "application/json"
+            //     },
+            //     body: JSON.stringify({ password })
+            // })
         }
     }
 
     useEffect(() => {
         const abc = async () => {
 
-            const res = await fetch(`${APIS.PASSWORD_API}/verifytoken/${id}/${token}`, {
-                method: 'POST',
-                headers: {
-                    "content-type": "application/json"
-                },
-                body: JSON.stringify({ id, token })
-            })
-            console.log(res);
-            statusupdate(res.status)
+            // const res = await fetch(`${APIS.PASSWORD_API}/verifytoken/${id}/${token}`, {
+            //     method: 'POST',
+            //     headers: {
+            //         "content-type": "application/json"
+            //     },
+            //     body: JSON.stringify({ id, token })
+            // })
+
+            const response = await verifyToken(id, token)
+            if (response) {
+                alert("user validate succesfully")
+            } else {
+                alert("Password Reset Link expired, Generate new Link")
+                navigate("/login")
+            }
+            console.log(response);
+            statusupdate(response.status)
         }
         abc()
-    }, [])
+    }, [id, token, navigate])
 
 
     return (

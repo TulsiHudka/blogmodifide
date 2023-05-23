@@ -1,5 +1,5 @@
 import api from "./interceptor";
-import Blogs from "../components/Blogs";
+// import Blogs from "../components/Blogs";
 // import axios from "axios";
 // import { APIS } from "../Url/appUrl";
 // import { useNavigate } from "react-router-dom";
@@ -62,17 +62,24 @@ export const deleteBlog = async (data) => {
         alert(error.message);
     }
 }
+// const blogPost = jdnc;
 
 export const blogPost = async (data) => {
     const id = data.id
+    // console.log(id);
+    // const blogdetail = data.blogDetail
+    // console.log(blogdetail);
     try {
-        const response = await api.get(`blogs/blog/${id}`)
-        const blogPost = response?.data.data
+        const response = await api.get(`blogs/blogs/${id}`)
+        const blogPost = response?.data
+        console.log(blogPost);
 
-        if (!blogPost) {
-            alert("Blogs not found")
-        } else {
+        if (blogPost) {
+            // console.log("kjfhgruh");
             return blogPost
+            // alert("Blogs found")
+        } else {
+            alert("Blogs not found")
         }
     } catch (e) {
         alert(e.message)
