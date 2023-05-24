@@ -1,13 +1,10 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-// import axios from "axios";
 import { toast } from "react-toastify";
 import api from "../services/interceptor";
 
 export const getBlogs = createAsyncThunk(
     'blogs/getBlogs',
     async () => {
-        // const isLogin = JSON.parse(localStorage.getItem("user"))
-        // const token = JSON.parse(localStorage.getItem("token"))
         try {
             const response = await api.get("blogs/blogs"
             );

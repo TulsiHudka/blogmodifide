@@ -1,7 +1,6 @@
 import React, { useEffect } from 'react'
 import { useState } from 'react'
 import { useParams } from 'react-router-dom';
-import { APIS } from '../Url/appUrl';
 import { useNavigate } from 'react-router-dom';
 import { verifyToken } from '../services/passwordApi';
 import { changedPassword } from '../services/passwordApi';
@@ -21,28 +20,11 @@ function ChangePassword() {
             changedPassword(id, token, password)
             alert("password changed sucessfully")
             navigate("/login")
-
-            // await fetch(`${APIS.PASSWORD_API}/changedPassword/${id}/${token}`, {
-            //     method: 'POST',
-            //     headers: {
-            //         "content-type": "application/json"
-            //     },
-            //     body: JSON.stringify({ password })
-            // })
         }
     }
 
     useEffect(() => {
-        const abc = async () => {
-
-            // const res = await fetch(`${APIS.PASSWORD_API}/verifytoken/${id}/${token}`, {
-            //     method: 'POST',
-            //     headers: {
-            //         "content-type": "application/json"
-            //     },
-            //     body: JSON.stringify({ id, token })
-            // })
-
+        const validate = async () => {
             const response = await verifyToken(id, token)
             if (response) {
                 alert("user validate succesfully")
@@ -53,9 +35,8 @@ function ChangePassword() {
             console.log(response);
             statusupdate(response.status)
         }
-        abc()
+        validate()
     }, [id, token, navigate])
-
 
     return (
         <div className="row" style={{ width: "70%" }}>

@@ -6,7 +6,6 @@ import api from "../services/interceptor";
 export const getUsers = createAsyncThunk(
   'users/getUsers',
   async () => {
-    // const token = JSON.parse(localStorage.getItem("token"))
     try {
       const response = await api.get("users/users"
       );

@@ -1,12 +1,9 @@
 import React from 'react'
 import { useState } from 'react'
 import { sendPasswordLink } from '../services/passwordApi';
-import { APIS } from '../Url/appUrl';
 
 function ForgatePassword() {
-
     const [email, emailupdate] = useState("");
-
     const submitHandler = async (e) => {
         e.preventDefault();
         const response = await sendPasswordLink(email)
@@ -17,13 +14,6 @@ function ForgatePassword() {
             alert("Invalid User")
         }
         emailupdate('')
-        // await fetch(`${APIS.PASSWORD_API}/sendpasswordlink`, {
-        //     method: 'POST',
-        //     headers: {
-        //         "content-type": "application/json"
-        //     },
-        //     body: JSON.stringify({ email })
-        // })
     }
 
     return (

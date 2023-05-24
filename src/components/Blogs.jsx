@@ -6,15 +6,11 @@ import styles from "./EditBlog.module.css";
 import styled from "styled-components";
 import "ag-grid-community/styles/ag-grid.css";
 import "ag-grid-community/styles/ag-theme-alpine.css";
-// import axios from "axios";
-import api from "../services/interceptor";
-// import { getUsers } from "../Store/user-slice";
 import { useSelector, useDispatch } from "react-redux";
 import { getBlogs } from "../Store/blog-slice";
 import { deleteBlog } from "../services/blogApi";
 
 function Blogs() {
-  // const [rowData, setRowData] = useState([]);
   const dispatch = useDispatch();
   const [tokenValue, setTokenValue] = useState("");
   const { blogs } = useSelector((state) => state?.blogs);
@@ -29,32 +25,12 @@ function Blogs() {
 
   useEffect(() => {
     dispatch(getBlogs());
-    // const blogs = async () => {
-    //   const response = await axios.get("http://localhost:8000/blogs/blogs")
-    //   setRowData(response.data)
-    // }
-    // blogs();
   }, [dispatch]);
 
-
   const deleteHandler = async (id) => {
-
     deleteBlog({ id });
     nevigate("/")
     dispatch(getBlogs())
-
-    // console.log(`Button clicked for row with ID ${id}`);
-    // await api.delete(`blogs/blogs/${id}`
-    // )
-    //   .then((response) => response.json())
-    //   .then((data) => {
-    //     // const response = await axios.get(`http://localhost:8000/blogs/blogs`)
-    //     // setRowData(response.data);
-    //     dispatch(getBlogs())
-    //     // setRowData(response.data);
-
-    //     nevigate("/")
-    //   });
   };
 
   const editHandler = (id) => {

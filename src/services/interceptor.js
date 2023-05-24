@@ -1,7 +1,6 @@
 import axios from 'axios';
 import { APP_URL } from '../Url/appUrl';
 import { APIS } from '../Url/appUrl';
-// console.log(process.env.REACT_APP_BASE_URL);
 const token = JSON.parse(localStorage.getItem("token"));
 const isLoggedIn = JSON.parse(localStorage.getItem("user"));
 const api = axios.create({
@@ -10,7 +9,6 @@ const api = axios.create({
     headers: { Authorization: "Bearer " + token }
 });
 
-// const jwtInterceptor = axios.create({});
 if (isLoggedIn) {
     const loggedUserId = isLoggedIn._id;
 

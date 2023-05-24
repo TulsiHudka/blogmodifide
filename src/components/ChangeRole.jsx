@@ -1,8 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { getUsers } from "../Store/user-slice";
 import { useDispatch } from "react-redux";
-// import axios from 'axios';
-import api from '../services/interceptor';
 import { changeRole } from '../services/userApi';
 
 const ChangeRole = (user) => {
@@ -23,22 +21,6 @@ const ChangeRole = (user) => {
     const updatedRole = { id, role }
     await changeRole(updatedRole)
     dispatch(getUsers())
-    // handleClose()
-
-    // const newData = { ...data, role: role }
-    // console.log(newData);
-    // await api.put(`users/users/${data._id}`,
-    //   newData
-    //   , {
-    //     headers: {
-    //       "Content-Type": "application/json",
-    //       // Authorization: "Bearer " + token
-    //     },
-    //   })
-    //   .then((data) => {
-    //     dispatch(getUsers());
-    //   })
-    //   .catch((error) => console.error(error));
   }
 
   return (

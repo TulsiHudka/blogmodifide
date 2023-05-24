@@ -6,7 +6,6 @@ import styled from "styled-components";
 import styles from "./EditBlog.module.css";
 import "ag-grid-community/styles/ag-grid.css";
 import "ag-grid-community/styles/ag-theme-alpine.css";
-import axios from "axios";
 import api from "../services/interceptor";
 
 function MyBlog() {
@@ -28,18 +27,18 @@ function MyBlog() {
       });
       setRowData(adminBlog);
     };
-    myBlogs()
+    myBlogs();
   }, []);
 
   const deleteHandler = (id) => {
     console.log(`Button clicked for row with ID ${id}`);
-    api.delete(`blogs/blogs/${id}`
-    )
+    api
+      .delete(`blogs/blogs/${id}`)
       .then((response) => response.json())
       .then(async () => {
-        const response = await api.get(`blogs/blogs`)
+        const response = await api.get(`blogs/blogs`);
         setRowData(response.data);
-        nevigate("/")
+        nevigate("/");
       });
   };
 

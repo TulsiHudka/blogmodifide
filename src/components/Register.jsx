@@ -1,7 +1,5 @@
-import axios from "axios";
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { APIS } from "../Url/appUrl";
 import { register } from "../services/userApi";
 
 const Register = () => {

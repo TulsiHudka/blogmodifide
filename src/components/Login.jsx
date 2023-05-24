@@ -1,7 +1,5 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import axios from "axios";
-import { APIS } from "../Url/appUrl";
 import { login } from "../services/userApi";
 
 const Login = () => {
@@ -11,7 +9,6 @@ const Login = () => {
 
   const validate = () => {
     let result = true
-
     if (email === '' && password === '') {
       result = false;
       alert("All fields are required")
@@ -42,19 +39,6 @@ const Login = () => {
       }
     }
   }
-  // const ProceedLogin = async (e) => {
-  //   e.preventDefault();
-  //   const { data } = await axios.post(`${APIS.USER_API}/login`, {
-  //     email: user?.email,
-  //     password: user?.password
-  //   }, {
-  //     headers: { "content-type": "application/json" },
-  //   })
-  //   console.log(data);
-  //   localStorage.setItem("user", JSON.stringify(data?.user));
-  //   localStorage.setItem("token", JSON.stringify(data?.token));
-  //   navigate("/");
-  // }
 
   return (
     <div className="row">

@@ -2,7 +2,6 @@ import api from "./interceptor";
 import { APIS } from "../Url/appUrl";
 import axios from "axios";
 
-
 export const register = async (data) => {
     try {
         const response = await axios.post(`${APIS.USER_API}/register`, data, {
@@ -37,11 +36,9 @@ export const login = async (data) => {
     }
 }
 
-
 export const changeRole = async (data) => {
     try {
         console.log(data.id);
-        // console.log(data._id);
         const response = await api.put(`users/users/${data.id}`, data);
         const changeRole = await response?.data;
         if (changeRole) {
